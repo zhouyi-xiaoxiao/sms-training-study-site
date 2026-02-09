@@ -53,8 +53,24 @@ def clean_tex(s: str) -> str:
     s = re.sub(r"\\par", "\n", s)
     s = re.sub(r"\\[a-zA-Z]+", "", s)
     s = s.replace("{", "").replace("}", "")
+    s = re.sub(r"\s*\$\$\s*", " → ", s)
+    s = re.sub(r"\$([^$]+)\$", r"\1", s)
+    s = s.replace("=>", "→")
     s = re.sub(r"\s+", " ", s)
     return s.strip()
+
+
+def normalize_knowledge_content(raw: str) -> str:
+    s = raw
+    s = re.sub(r"\s*\$\$\s*", " → ", s)
+    s = re.sub(r"\$([^$]+)\$", r"\1", s)
+    s = s.replace("=>", "→")
+    # Recover flattened list items from one-line content.
+    s = re.sub(r"\s+-\s+", "\n- ", s)
+    s = re.sub(r"\n{2,}", "\n", s)
+    lines = [re.sub(r"\s+", " ", line).strip() for line in s.split("\n")]
+    lines = [line for line in lines if line]
+    return "\n".join(lines)
 
 
 def topic_tags(text: str) -> List[str]:
@@ -212,7 +228,7 @@ def parse_knowledge(tex: str) -> List[KnowledgeItem]:
             # strip tables and heavy latex blocks for readability
             s_seg = re.sub(r"\\begin\{longtable\}.*?\\end\{longtable\}", "", s_seg, flags=re.S)
             s_seg = re.sub(r"\\begin\{titlepage\}.*?\\end\{titlepage\}", "", s_seg, flags=re.S)
-            content = clean_tex(s_seg)
+            content = normalize_knowledge_content(clean_tex(s_seg))
             if len(content) < 20:
                 continue
             kid = slugify(f"{chap_title}-{sec_title}")
