@@ -513,7 +513,6 @@ function renderDocLibrary() {
         <p>${escapeHtml(doc.desc || "")}</p>
         <div class=\"tool-row\">
           <a class=\"solid-btn as-link\" href=\"${escapeHtml(previewPath)}\" target=\"_blank\" rel=\"noopener\">在线阅读</a>
-          <a class=\"ghost-btn as-link\" href=\"${escapeHtml(previewPath)}\" target=\"_top\" rel=\"noopener\">当前页打开</a>
         </div>
       </article>`;
       }
