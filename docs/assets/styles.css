@@ -550,6 +550,7 @@ iframe {
 }
 
 .hint { color: var(--muted); margin: 6px 0 0; font-size: 13px; }
+.inline-hint { margin: 0; }
 
 .footer {
   text-align: center;

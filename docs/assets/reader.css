@@ -78,6 +78,24 @@ body {
   font-size: 14px;
 }
 
+.back-float {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 998;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: linear-gradient(120deg, #0a7f7f, #0f5e8c);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(10, 38, 42, 0.25);
+}
+
+.back-float:hover {
+  filter: brightness(1.05);
+}
+
 .doc-toc {
   margin-top: 12px;
   background: var(--card);
@@ -280,6 +298,13 @@ textarea:focus-visible {
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
+
+  .back-float {
+    right: 10px;
+    bottom: 10px;
+    padding: 9px 12px;
+    font-size: 13px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -306,7 +331,8 @@ textarea:focus-visible {
   }
 
   .doc-toc,
-  .back-link {
+  .back-link,
+  .back-float {
     display: none;
   }
 }

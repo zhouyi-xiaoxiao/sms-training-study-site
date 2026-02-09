@@ -63,6 +63,10 @@ function isObjective(q) {
   return q.qtype === "single" || q.qtype === "multiple" || q.qtype === "truefalse";
 }
 
+function isAutoJudgeObjective(q) {
+  return q.qtype === "single" || q.qtype === "truefalse";
+}
+
 function parseAnswerLetters(answer) {
   if (Array.isArray(answer)) {
     return answer.map((x) => String(x).trim().toUpperCase()).filter(Boolean);
@@ -391,7 +395,7 @@ function renderObjectiveOptions(q, record) {
 
           return `
             <label class=\"${optionClass}\">
-              <input type=\"${inputType}\" name=\"q-${escapeHtml(q.id)}\" value=\"${letter}\" ${checked} />
+              <input type=\"${inputType}\" name=\"q-${escapeHtml(q.id)}\" value=\"${letter}\" data-qid=\"${escapeHtml(q.id)}\" ${checked} />
               <span><strong>${letter}.</strong> ${escapeHtml(opt)}</span>
             </label>
           `;
@@ -453,6 +457,7 @@ function renderSubjectiveBlock(q, record) {
 
 function renderQuestionCard(q) {
   const record = getRecord(q.id);
+  const autoJudge = isAutoJudgeObjective(q);
 
   return `
     <article class=\"question-card\" id=\"q-${escapeHtml(q.id)}\">
@@ -468,7 +473,11 @@ function renderQuestionCard(q) {
           ? `
             ${renderObjectiveOptions(q, record)}
             <div class=\"tool-row\">
-              <button class=\"solid-btn\" data-action=\"submit-objective\" data-qid=\"${escapeHtml(q.id)}\">提交答案</button>
+              ${
+                autoJudge
+                  ? `<span class=\"hint inline-hint\">点击选项后自动判题</span>`
+                  : `<button class=\"solid-btn\" data-action=\"submit-objective\" data-qid=\"${escapeHtml(q.id)}\">提交答案</button>`
+              }
               <button class=\"ghost-btn\" data-action=\"clear-answer\" data-qid=\"${escapeHtml(q.id)}\">清空重做</button>
               <button class=\"ghost-btn\" data-action=\"go-knowledge\" data-tag=\"${escapeHtml((q.tags || ["综合"])[0])}\">看相关知识点</button>
             </div>
@@ -762,6 +771,17 @@ function gradeObjectiveQuestion(q, userLetters) {
   return false;
 }
 
+function commitObjectiveAnswer(q, checkedLetters) {
+  const correct = gradeObjectiveQuestion(q, checkedLetters);
+  upsertRecord(q.id, {
+    userLetters: checkedLetters,
+    correct,
+  });
+  renderMetaStats();
+  renderQuizList();
+  renderProgress();
+}
+
 function bindQuizActionEvents() {
   const list = $("#quizList");
 
@@ -788,14 +808,7 @@ function bindQuizActionEvents() {
         window.alert("请先选择答案后再提交。");
         return;
       }
-      const correct = gradeObjectiveQuestion(q, checked);
-      upsertRecord(q.id, {
-        userLetters: checked,
-        correct,
-      });
-      renderMetaStats();
-      renderQuizList();
-      renderProgress();
+      commitObjectiveAnswer(q, checked);
       return;
     }
 
@@ -848,6 +861,22 @@ function bindQuizActionEvents() {
       ...rec,
       subjectiveText: input.value,
     });
+  });
+
+  // single / truefalse objective questions: auto judge when one option is chosen
+  list.addEventListener("change", (e) => {
+    const input = e.target.closest(".option-list input[data-qid]");
+    if (!input) return;
+
+    const qid = input.dataset.qid;
+    const q = state.data.questions.find((item) => item.id === qid);
+    if (!q || !isAutoJudgeObjective(q)) return;
+
+    const card = input.closest(".question-card");
+    if (!card) return;
+    const checked = Array.from(card.querySelectorAll(`input[name='q-${CSS.escape(q.id)}']:checked`)).map((el) => el.value);
+    if (!checked.length) return;
+    commitObjectiveAnswer(q, checked);
   });
 
   const pagerTop = $("#quizPager");

@@ -38,12 +38,6 @@ DOC_SPECS = [
         source_name="practice_with_brain_science.tex",
         output_name="doc-3.html",
     ),
-    DocSpec(
-        doc_id="doc-4",
-        title="逐字稿",
-        source_name="verbatim_transcript.tex",
-        output_name="doc-4.html",
-    ),
 ]
 
 
@@ -446,6 +440,7 @@ def render_page(title: str, body_html: str, toc_html: str) -> str:
   </head>
   <body>
     <a class=\"skip-link\" href=\"#docMain\">跳到正文</a>
+    <a class=\"back-float\" href=\"../index.html\" target=\"_top\" rel=\"noopener\">返回学习站</a>
     <main class=\"reader-shell\" id=\"docMain\">
       <header class=\"doc-header\">
         <p class=\"kicker\">在线文稿</p>

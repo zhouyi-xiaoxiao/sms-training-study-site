@@ -277,13 +277,6 @@ def main() -> None:
             "web": "readers/doc-3.html",
             "pdf": "files/03-企业短信培训题库-学习测评版.pdf",
         },
-        {
-            "id": "doc-4",
-            "title": "逐字稿",
-            "desc": "保留原始语境，适合对照细节。",
-            "web": "readers/doc-4.html",
-            "pdf": "files/04-逐字稿-企业短信培训.pdf",
-        },
     ]
 
     data = {
