@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/reader.css?v=20260209-2338" />
+    <link rel="stylesheet" href="../assets/reader.css?v=20260210-0015" />
   </head>
   <body>
     <a class="skip-link" href="#docMain">跳到正文</a>
@@ -53,6 +53,14 @@
         <h1>题库（学习测评版）</h1>
         <a class="back-link" href="../index.html" target="_top" rel="noopener">返回学习站</a>
       </header>
+      <section class="doc-search" aria-label="全文检索">
+        <input id="docSearchInput" type="search" placeholder="全文搜索当前文稿（回车）" />
+        <button id="docSearchRun" type="button">搜索</button>
+        <button id="docSearchPrev" type="button">上一个</button>
+        <button id="docSearchNext" type="button">下一个</button>
+        <button id="docSearchClear" type="button">清空</button>
+        <span id="docSearchMeta" class="doc-search-meta">0/0</span>
+      </section>
       <nav class="doc-toc" aria-label="文档目录">
   <h2>目录</h2>
   <ol>
@@ -351,40 +359,172 @@
     </main>
     <script>
       (() => {
-        const btn = document.getElementById("tocFloatBtn");
-        const drawer = document.getElementById("tocDrawer");
-        if (!btn || !drawer) return;
+        const setupTocDrawer = () => {
+          const btn = document.getElementById("tocFloatBtn");
+          const drawer = document.getElementById("tocDrawer");
+          if (!btn || !drawer) return;
 
-        const closeDrawer = () => {
-          drawer.hidden = true;
-          btn.setAttribute("aria-expanded", "false");
-          document.body.classList.remove("toc-open");
+          const closeDrawer = () => {
+            drawer.hidden = true;
+            btn.setAttribute("aria-expanded", "false");
+            document.body.classList.remove("toc-open");
+          };
+
+          const openDrawer = () => {
+            drawer.hidden = false;
+            btn.setAttribute("aria-expanded", "true");
+            document.body.classList.add("toc-open");
+          };
+
+          btn.addEventListener("click", () => {
+            if (drawer.hidden) openDrawer();
+            else closeDrawer();
+          });
+
+          drawer.addEventListener("click", (event) => {
+            const closeBtn = event.target.closest("[data-action='close-toc']");
+            if (closeBtn) {
+              closeDrawer();
+              return;
+            }
+            const tocLink = event.target.closest("a[href^='#']");
+            if (tocLink) closeDrawer();
+          });
+
+          document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") closeDrawer();
+          });
         };
 
-        const openDrawer = () => {
-          drawer.hidden = false;
-          btn.setAttribute("aria-expanded", "true");
-          document.body.classList.add("toc-open");
+        const setupDocSearch = () => {
+          const root = document.querySelector(".doc-content");
+          const input = document.getElementById("docSearchInput");
+          const runBtn = document.getElementById("docSearchRun");
+          const prevBtn = document.getElementById("docSearchPrev");
+          const nextBtn = document.getElementById("docSearchNext");
+          const clearBtn = document.getElementById("docSearchClear");
+          const meta = document.getElementById("docSearchMeta");
+          if (!root || !input || !runBtn || !prevBtn || !nextBtn || !clearBtn || !meta) return;
+
+          let marks = [];
+          let activeIndex = -1;
+
+          const escapeRegExp = (text) => String(text).replace(/[.*+?^$()|[\]\\{}]/g, "\\$&");
+          const updateMeta = () => {
+            meta.textContent = `${marks.length ? activeIndex + 1 : 0}/${marks.length}`;
+          };
+
+          const clearMarks = () => {
+            root.querySelectorAll("mark.doc-search-hit, mark.doc-search-hit-active").forEach((mark) => {
+              const text = document.createTextNode(mark.textContent || "");
+              mark.replaceWith(text);
+            });
+            root.normalize();
+            marks = [];
+            activeIndex = -1;
+            updateMeta();
+          };
+
+          const setActive = (index) => {
+            if (!marks.length) {
+              activeIndex = -1;
+              updateMeta();
+              return;
+            }
+            marks.forEach((m) => m.classList.remove("doc-search-hit-active"));
+            activeIndex = ((index % marks.length) + marks.length) % marks.length;
+            const current = marks[activeIndex];
+            current.classList.add("doc-search-hit-active");
+            current.scrollIntoView({ behavior: "smooth", block: "center" });
+            updateMeta();
+          };
+
+          const runSearch = () => {
+            const keyword = input.value.trim();
+            clearMarks();
+            if (!keyword) return;
+
+            const regex = new RegExp(escapeRegExp(keyword), "gi");
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+              acceptNode(node) {
+                if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+                const parent = node.parentElement;
+                if (!parent) return NodeFilter.FILTER_REJECT;
+                if (parent.closest("script,style,mark")) return NodeFilter.FILTER_REJECT;
+                return NodeFilter.FILTER_ACCEPT;
+              },
+            });
+
+            const textNodes = [];
+            while (walker.nextNode()) {
+              textNodes.push(walker.currentNode);
+            }
+
+            textNodes.forEach((node) => {
+              const text = node.nodeValue || "";
+              regex.lastIndex = 0;
+              if (!regex.test(text)) return;
+              regex.lastIndex = 0;
+
+              const frag = document.createDocumentFragment();
+              let last = 0;
+              text.replace(regex, (match, offset) => {
+                if (offset > last) {
+                  frag.appendChild(document.createTextNode(text.slice(last, offset)));
+                }
+                const mark = document.createElement("mark");
+                mark.className = "doc-search-hit";
+                mark.textContent = match;
+                frag.appendChild(mark);
+                last = offset + match.length;
+                return match;
+              });
+              if (last < text.length) {
+                frag.appendChild(document.createTextNode(text.slice(last)));
+              }
+              node.replaceWith(frag);
+            });
+
+            marks = Array.from(root.querySelectorAll("mark.doc-search-hit"));
+            if (marks.length) setActive(0);
+            else updateMeta();
+          };
+
+          runBtn.addEventListener("click", runSearch);
+          prevBtn.addEventListener("click", () => {
+            if (!marks.length) {
+              runSearch();
+              return;
+            }
+            setActive(activeIndex - 1);
+          });
+          nextBtn.addEventListener("click", () => {
+            if (!marks.length) {
+              runSearch();
+              return;
+            }
+            setActive(activeIndex + 1);
+          });
+          clearBtn.addEventListener("click", () => {
+            input.value = "";
+            clearMarks();
+            input.focus();
+          });
+          input.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              runSearch();
+            }
+          });
+          input.addEventListener("input", () => {
+            if (!input.value.trim()) clearMarks();
+          });
+
+          updateMeta();
         };
 
-        btn.addEventListener("click", () => {
-          if (drawer.hidden) openDrawer();
-          else closeDrawer();
-        });
-
-        drawer.addEventListener("click", (event) => {
-          const closeBtn = event.target.closest("[data-action='close-toc']");
-          if (closeBtn) {
-            closeDrawer();
-            return;
-          }
-          const tocLink = event.target.closest("a[href^='#']");
-          if (tocLink) closeDrawer();
-        });
-
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "Escape") closeDrawer();
-        });
+        setupTocDrawer();
+        setupDocSearch();
       })();
     </script>
   </body>

@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/styles.css?v=20260209-2338" />
+    <link rel="stylesheet" href="assets/styles.css?v=20260210-0015" />
   </head>
   <body>
     <a class="skip-link" href="#mainContent">跳到主内容</a>
@@ -68,6 +68,7 @@
               <input id="knowledgeSearch" type="search" placeholder="搜索知识点（如：计费、回执、USSD）" />
               <button class="ghost-btn" id="knowledgeClear">清空</button>
             </div>
+            <p class="hint" id="knowledgeSearchStatus">输入关键词后会按相关度排序。</p>
             <div id="knowledgeTags" class="chip-wrap"></div>
           </div>
           <div id="knowledgeList" class="knowledge-list"></div>
@@ -82,6 +83,7 @@
               <label class="check-inline"><input type="checkbox" id="quizWrongOnly" /> 仅错题</label>
               <button class="ghost-btn" id="quizClearFilter">重置筛选</button>
             </div>
+            <p class="hint" id="quizSearchStatus">输入关键词后会在题干/选项/解析中检索并排序。</p>
             <p class="hint">单选/判断：点击选项即自动判题；多选：选择后点“提交答案”；填空/简答：可输入后点击“显示参考答案”。</p>
           </div>
 
@@ -94,6 +96,11 @@
           <div class="panel">
             <h2>文稿中心</h2>
             <p class="hint">仅保留系统学习手册与题库文稿；结构化知识点请在「知识点」页学习，避免内容重复。</p>
+            <div class="tool-row">
+              <input id="docSearch" type="search" placeholder="搜索文稿标题或说明" />
+              <button class="ghost-btn" id="docSearchClear">清空</button>
+            </div>
+            <p class="hint" id="docSearchStatus">可按文稿名称快速检索。</p>
             <div id="docCards" class="doc-cards"></div>
           </div>
         </section>
@@ -115,6 +122,6 @@
       <p>企业短信学习站 · 本地数据驱动 · 支持 GitHub Pages 发布</p>
     </footer>
 
-    <script type="module" src="assets/app.js?v=20260209-2338"></script>
+    <script type="module" src="assets/app.js?v=20260210-0015"></script>
   </body>
 </html>

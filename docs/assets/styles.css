@@ -515,6 +515,13 @@ textarea:focus-visible {
 .hint { color: var(--muted); margin: 6px 0 0; font-size: 13px; }
 .inline-hint { margin: 0; }
 
+mark.search-hit {
+  background: rgba(242, 143, 59, 0.3);
+  color: inherit;
+  padding: 0 1px;
+  border-radius: 3px;
+}
+
 .footer {
   text-align: center;
   color: var(--muted);

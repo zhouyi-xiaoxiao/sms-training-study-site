@@ -18,6 +18,7 @@ const state = {
     quizSource: "全部来源",
     quizType: "全部题型",
     quizSearch: "",
+    docSearch: "",
     quizWrongOnly: false,
     quizPage: 1,
   },
@@ -48,6 +49,50 @@ function escapeHtml(input = "") {
 
 function normalize(text = "") {
   return String(text).trim().toLowerCase();
+}
+
+function escapeRegExp(input = "") {
+  return String(input).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getSearchTokens(raw = "") {
+  return Array.from(
+    new Set(
+      String(raw)
+        .trim()
+        .split(/\s+/)
+        .map((x) => normalize(x))
+        .filter(Boolean)
+    )
+  );
+}
+
+function scoreField(text = "", tokens = []) {
+  if (!tokens.length) return 0;
+  const blob = normalize(text);
+  if (!blob) return 0;
+
+  return tokens.reduce((score, token) => {
+    if (!token || !blob.includes(token)) return score;
+    const count = blob.split(token).length - 1;
+    let delta = 8 + Math.min(count, 4) * 2;
+    if (blob === token) delta += 24;
+    else if (blob.startsWith(token)) delta += 8;
+    return score + delta;
+  }, 0);
+}
+
+function highlightText(text = "", tokens = []) {
+  const raw = String(text);
+  if (!tokens.length) return escapeHtml(raw);
+
+  const pattern = new RegExp(`(${tokens.map((t) => escapeRegExp(t)).join("|")})`, "gi");
+  const parts = raw.split(pattern);
+  if (parts.length <= 1) return escapeHtml(raw);
+
+  return parts
+    .map((part, idx) => (idx % 2 === 1 ? `<mark class="search-hit">${escapeHtml(part)}</mark>` : escapeHtml(part)))
+    .join("");
 }
 
 function letterAt(index) {
@@ -161,7 +206,7 @@ function getAllTags() {
   return state.cache.allTags;
 }
 
-function formatKnowledgeContent(raw = "") {
+function formatKnowledgeContent(raw = "", tokens = []) {
   const lines = raw.split(/\n+/).map((x) => x.trim()).filter(Boolean);
   if (!lines.length) return "<p class=\"hint\">暂无内容。</p>";
 
@@ -169,51 +214,92 @@ function formatKnowledgeContent(raw = "") {
   if (bullets.length >= Math.ceil(lines.length / 2)) {
     const items = bullets
       .map((line) => line.replace(/^[-*]\s+/, "").trim())
-      .map((line) => `<li>${escapeHtml(line)}</li>`)
+      .map((line) => `<li>${highlightText(line, tokens)}</li>`)
       .join("");
     return `<ul class=\"compact-list\">${items}</ul>`;
   }
 
-  return `<p>${escapeHtml(lines.join("\n")).replace(/\n/g, "<br />")}</p>`;
+  return `<p>${highlightText(lines.join("\n"), tokens).replace(/\n/g, "<br />")}</p>`;
 }
 
 function getKnowledgeFiltered() {
-  const search = normalize(state.ui.knowledgeSearch);
   const tag = state.ui.knowledgeTag;
+  const tokens = getSearchTokens(state.ui.knowledgeSearch);
 
-  return state.data.knowledge.filter((item) => {
-    const byTag = tag === "全部" || (item.tags || []).includes(tag);
-    if (!byTag) return false;
-    if (!search) return true;
+  const scoped = state.data.knowledge
+    .map((item, index) => ({ item, index }))
+    .filter(({ item }) => tag === "全部" || (item.tags || []).includes(tag));
 
-    const blob = normalize(
-      `${item.chapter} ${item.title} ${item.content} ${(item.tags || []).join(" ")}`
-    );
-    return blob.includes(search);
-  });
+  if (!tokens.length) return scoped.map(({ item }) => item);
+
+  return scoped
+    .map(({ item, index }) => {
+      const score =
+        scoreField(item.title, tokens) * 7 +
+        scoreField(item.chapter, tokens) * 3 +
+        scoreField((item.tags || []).join(" "), tokens) * 4 +
+        scoreField(item.content, tokens);
+      return { item, index, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .map(({ item }) => item);
 }
 
 function getQuizFiltered() {
   const source = state.ui.quizSource;
   const qtype = state.ui.quizType;
-  const search = normalize(state.ui.quizSearch);
+  const tokens = getSearchTokens(state.ui.quizSearch);
 
-  return state.data.questions.filter((q) => {
-    if (source !== "全部来源" && q.source !== source) return false;
-    if (qtype !== "全部题型" && q.qtype !== qtype) return false;
+  const scoped = state.data.questions
+    .map((q, index) => ({ q, index }))
+    .filter(({ q }) => {
+      if (source !== "全部来源" && q.source !== source) return false;
+      if (qtype !== "全部题型" && q.qtype !== qtype) return false;
 
-    if (state.ui.quizWrongOnly) {
-      const rec = getRecord(q.id);
-      if (!rec || rec.correct !== false) return false;
-    }
+      if (state.ui.quizWrongOnly) {
+        const rec = getRecord(q.id);
+        if (!rec || rec.correct !== false) return false;
+      }
 
-    if (!search) return true;
+      return true;
+    });
 
-    const blob = normalize(
-      [q.id, q.source, TYPE_LABEL[q.qtype] || q.qtype, q.stem, (q.options || []).join(" "), q.explanation, (q.tags || []).join(" ")].join(" ")
-    );
-    return blob.includes(search);
-  });
+  if (!tokens.length) return scoped.map(({ q }) => q);
+
+  return scoped
+    .map(({ q, index }) => {
+      const score =
+        scoreField(q.id, tokens) * 5 +
+        scoreField(q.stem, tokens) * 7 +
+        scoreField((q.options || []).join(" "), tokens) * 5 +
+        scoreField(q.explanation || "", tokens) * 3 +
+        scoreField((q.tags || []).join(" "), tokens) * 4 +
+        scoreField(q.source, tokens) * 2 +
+        scoreField(TYPE_LABEL[q.qtype] || q.qtype, tokens);
+      return { q, index, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .map(({ q }) => q);
+}
+
+function getDocFiltered() {
+  const tokens = getSearchTokens(state.ui.docSearch);
+  const docs = state.data.documents || [];
+  if (!tokens.length) return docs;
+
+  return docs
+    .map((doc, index) => {
+      const score =
+        scoreField(doc.title || "", tokens) * 7 +
+        scoreField(doc.desc || "", tokens) * 3 +
+        scoreField(doc.id || "", tokens) * 2;
+      return { doc, index, score };
+    })
+    .filter((x) => x.score > 0)
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .map(({ doc }) => doc);
 }
 
 function formatObjectiveAnswerText(q, letters) {
@@ -272,7 +358,19 @@ function countRelatedByTags(tags = []) {
 
 function renderKnowledgeList() {
   const list = $("#knowledgeList");
+  const status = $("#knowledgeSearchStatus");
+  const tokens = getSearchTokens(state.ui.knowledgeSearch);
   const filtered = getKnowledgeFiltered();
+
+  if (status) {
+    if (tokens.length) {
+      status.textContent = `检索“${tokens.join(" ")}”：匹配 ${filtered.length} 条（按相关度排序）。`;
+    } else if (state.ui.knowledgeTag !== "全部") {
+      status.textContent = `当前标签“${state.ui.knowledgeTag}”：共 ${filtered.length} 条。`;
+    } else {
+      status.textContent = "输入关键词后会按相关度排序。";
+    }
+  }
 
   if (!filtered.length) {
     list.innerHTML = `<div class=\"panel\"><p class=\"hint\">没有匹配结果，建议清空筛选后重试。</p></div>`;
@@ -286,11 +384,11 @@ function renderKnowledgeList() {
       return `
       <article class=\"knowledge-card\" id=\"k-${escapeHtml(item.id)}\">
         <div class=\"meta-line\">
-          <span class=\"meta-badge\">${escapeHtml(item.chapter)}</span>
-          ${(item.tags || []).map((tag) => `<span class=\"meta-badge\">${escapeHtml(tag)}</span>`).join("")}
+          <span class=\"meta-badge\">${highlightText(item.chapter, tokens)}</span>
+          ${(item.tags || []).map((tag) => `<span class=\"meta-badge\">${highlightText(tag, tokens)}</span>`).join("")}
         </div>
-        <h3>${escapeHtml(item.title)}</h3>
-        <div class=\"knowledge-content\">${formatKnowledgeContent(item.content)}</div>
+        <h3>${highlightText(item.title, tokens)}</h3>
+        <div class=\"knowledge-content\">${formatKnowledgeContent(item.content, tokens)}</div>
         <div class=\"tool-row\">
           <button class=\"ghost-btn\" data-action=\"go-quiz-tag\" data-tag=\"${escapeHtml(primaryTag)}\">练习本主题题目（${relatedCount}）</button>
         </div>
@@ -348,7 +446,7 @@ function renderPager(container, total, page) {
   `;
 }
 
-function renderObjectiveOptions(q, record) {
+function renderObjectiveOptions(q, record, tokens = []) {
   const correctLetters = deriveCorrectLetters(q);
   const userLetters = Array.isArray(record?.userLetters) ? record.userLetters : [];
 
@@ -370,7 +468,7 @@ function renderObjectiveOptions(q, record) {
           return `
             <label class=\"${optionClass}\">
               <input type=\"${inputType}\" name=\"q-${escapeHtml(q.id)}\" value=\"${letter}\" data-qid=\"${escapeHtml(q.id)}\" ${checked} />
-              <span><strong>${letter}.</strong> ${escapeHtml(opt)}</span>
+              <span><strong>${letter}.</strong> ${highlightText(opt, tokens)}</span>
             </label>
           `;
         })
@@ -402,7 +500,7 @@ function renderObjectiveAnswerBox(q, record) {
   `;
 }
 
-function renderSubjectiveBlock(q, record) {
+function renderSubjectiveBlock(q, record, tokens = []) {
   const text = record?.subjectiveText || "";
   const shown = Boolean(record?.revealed);
   const reference = getSubjectiveReference(q);
@@ -420,7 +518,7 @@ function renderSubjectiveBlock(q, record) {
                 <div class=\"answer-key\">你的作答</div>
                 <div class=\"answer-value\">${escapeHtml(text || "（未填写）")}</div>
                 <div class=\"answer-key\">参考答案</div>
-                <div class=\"answer-value\">${escapeHtml(reference).replace(/\n/g, "<br />")}</div>
+                <div class=\"answer-value\">${highlightText(reference, tokens).replace(/\n/g, "<br />")}</div>
               </div>
             </div>`
           : ""
@@ -429,23 +527,23 @@ function renderSubjectiveBlock(q, record) {
   `;
 }
 
-function renderQuestionCard(q) {
+function renderQuestionCard(q, tokens = []) {
   const record = getRecord(q.id);
   const autoJudge = isAutoJudgeObjective(q);
 
   return `
     <article class=\"question-card\" id=\"q-${escapeHtml(q.id)}\">
       <div class=\"meta-line\">
-        <span class=\"meta-badge\">${escapeHtml(q.id)}</span>
-        <span class=\"meta-badge\">${escapeHtml(q.source)}</span>
+        <span class=\"meta-badge\">${highlightText(q.id, tokens)}</span>
+        <span class=\"meta-badge\">${highlightText(q.source, tokens)}</span>
         <span class=\"meta-badge\">${TYPE_LABEL[q.qtype] || q.qtype}</span>
-        ${(q.tags || []).map((tag) => `<span class=\"meta-badge\">${escapeHtml(tag)}</span>`).join("")}
+        ${(q.tags || []).map((tag) => `<span class=\"meta-badge\">${highlightText(tag, tokens)}</span>`).join("")}
       </div>
-      <h3 class=\"question-stem\">${escapeHtml(q.stem)}</h3>
+      <h3 class=\"question-stem\">${highlightText(q.stem, tokens)}</h3>
       ${
         isObjective(q)
           ? `
-            ${renderObjectiveOptions(q, record)}
+            ${renderObjectiveOptions(q, record, tokens)}
             <div class=\"tool-row\">
               ${
                 autoJudge
@@ -458,7 +556,7 @@ function renderQuestionCard(q) {
             ${renderObjectiveAnswerBox(q, record)}
           `
           : `
-            ${renderSubjectiveBlock(q, record)}
+            ${renderSubjectiveBlock(q, record, tokens)}
             <div class=\"tool-row\">
               <button class=\"ghost-btn\" data-action=\"go-knowledge\" data-tag=\"${escapeHtml((q.tags || ["综合"])[0])}\">看相关知识点</button>
             </div>
@@ -470,6 +568,8 @@ function renderQuestionCard(q) {
 
 function renderQuizList() {
   const filtered = getQuizFiltered();
+  const tokens = getSearchTokens(state.ui.quizSearch);
+  const status = $("#quizSearchStatus");
   const totalPages = Math.max(1, Math.ceil(filtered.length / QUIZ_PAGE_SIZE));
   if (state.ui.quizPage > totalPages) state.ui.quizPage = totalPages;
   if (state.ui.quizPage < 1) state.ui.quizPage = 1;
@@ -480,13 +580,19 @@ function renderQuizList() {
   renderPager($("#quizPager"), filtered.length, state.ui.quizPage);
   renderPager($("#quizPagerBottom"), filtered.length, state.ui.quizPage);
 
+  if (status) {
+    status.textContent = tokens.length
+      ? `检索“${tokens.join(" ")}”：匹配 ${filtered.length} 题（按相关度排序）。`
+      : "输入关键词后会在题干/选项/解析中检索并排序。";
+  }
+
   const list = $("#quizList");
   if (!pageItems.length) {
     list.innerHTML = `<div class=\"panel\"><p class=\"hint\">当前筛选下没有题目，建议重置筛选条件。</p></div>`;
     return;
   }
 
-  list.innerHTML = pageItems.map(renderQuestionCard).join("");
+  list.innerHTML = pageItems.map((q) => renderQuestionCard(q, tokens)).join("");
 }
 
 function getDocPreviewPath(doc) {
@@ -494,9 +600,17 @@ function getDocPreviewPath(doc) {
 }
 
 function renderDocLibrary() {
-  const docs = state.data.documents || [];
+  const tokens = getSearchTokens(state.ui.docSearch);
+  const docs = getDocFiltered();
   const cards = $("#docCards");
+  const status = $("#docSearchStatus");
   if (!cards) return;
+
+  if (status) {
+    status.textContent = tokens.length
+      ? `检索“${tokens.join(" ")}”：匹配 ${docs.length} 份文稿。`
+      : "可按文稿名称快速检索。";
+  }
 
   if (!docs.length) {
     cards.innerHTML = `<p class=\"hint\">暂无在线文稿。</p>`;
@@ -509,8 +623,8 @@ function renderDocLibrary() {
         const previewPath = getDocPreviewPath(doc);
         return `
       <article class=\"doc-card\">
-        <h3>${escapeHtml(doc.title)}</h3>
-        <p>${escapeHtml(doc.desc || "")}</p>
+        <h3>${highlightText(doc.title, tokens)}</h3>
+        <p>${highlightText(doc.desc || "", tokens)}</p>
         <div class=\"tool-row\">
           <a class=\"solid-btn as-link\" href=\"${escapeHtml(previewPath)}\" target=\"_blank\" rel=\"noopener\">在线阅读</a>
         </div>
@@ -711,6 +825,23 @@ function bindQuizFilterEvents() {
   });
 }
 
+function bindLibraryEvents() {
+  const search = $("#docSearch");
+  const clearBtn = $("#docSearchClear");
+  if (!search || !clearBtn) return;
+
+  search.addEventListener("input", (e) => {
+    state.ui.docSearch = e.target.value;
+    renderDocLibrary();
+  });
+
+  clearBtn.addEventListener("click", () => {
+    state.ui.docSearch = "";
+    search.value = "";
+    renderDocLibrary();
+  });
+}
+
 function gradeObjectiveQuestion(q, userLetters) {
   const correctLetters = deriveCorrectLetters(q).sort();
   const user = [...userLetters].sort();
@@ -889,11 +1020,13 @@ async function boot() {
   bindSidebarEvents();
   bindKnowledgeEvents();
   bindQuizFilterEvents();
+  bindLibraryEvents();
   bindQuizActionEvents();
   bindProgressEvents();
 
   $("#knowledgeSearch").value = state.ui.knowledgeSearch;
   $("#quizSearch").value = state.ui.quizSearch;
+  $("#docSearch").value = state.ui.docSearch;
   $("#quizWrongOnly").checked = state.ui.quizWrongOnly;
 
   renderAll();
