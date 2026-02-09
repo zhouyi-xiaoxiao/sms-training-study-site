@@ -1,0 +1,138 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{sms_training_style}[2026/02/08 SMS training style]
+
+\RequirePackage[a4paper,margin=2.4cm]{geometry}
+\RequirePackage{fontspec}
+\RequirePackage{xcolor}
+\RequirePackage{setspace}
+\RequirePackage{hyperref}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{longtable}
+\RequirePackage{array}
+\RequirePackage{ragged2e}
+\RequirePackage{enumitem}
+\RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+\RequirePackage{tcolorbox}
+\RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{multicol}
+\RequirePackage{makecell}
+\RequirePackage{lastpage}
+\RequirePackage{ulem}
+\RequirePackage{ifthen}
+
+\definecolor{themeblue}{HTML}{0A4D8C}
+\definecolor{themelight}{HTML}{EDF4FB}
+\definecolor{themeline}{HTML}{C9DDF2}
+\definecolor{themegreen}{HTML}{1D7A46}
+\definecolor{themeorange}{HTML}{B35C00}
+\definecolor{themegray}{HTML}{4B5563}
+\definecolor{titleblack}{HTML}{1F2937}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=themeblue,
+  urlcolor=themeblue,
+  citecolor=themeblue,
+  pdftitle={短信培训学习资料},
+  pdfauthor={整理：Codex}
+}
+
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.2em}
+\setlength{\tabcolsep}{4pt}
+\setlength{\headheight}{26pt}
+\setstretch{1.18}
+\emergencystretch=1.5em
+\raggedbottom
+
+\setlist[itemize]{
+  leftmargin=2.2em,
+  itemsep=0.15em,
+  topsep=0.25em,
+  parsep=0pt
+}
+\setlist[enumerate]{
+  leftmargin=2.2em,
+  itemsep=0.2em,
+  topsep=0.25em,
+  parsep=0pt
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{themegray}\leftmark}
+\fancyhead[R]{\small\color{themegray}企业短信培训学习资料}
+\fancyfoot[C]{\small\color{themegray}\thepage\ / \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{themeline}\leaders\hrule height \headrulewidth\hfill}}
+
+\titleformat{\chapter}
+  {\bfseries\LARGE\color{titleblack}}
+  {\color{themeblue}\thechapter}
+  {0.6em}
+  {}
+
+\titleformat{\section}
+  {\Large\bfseries\color{themeblue}}
+  {\thesection}
+  {0.6em}
+  {}
+
+\titleformat{\subsection}
+  {\large\bfseries\color{titleblack}}
+  {\thesubsection}
+  {0.6em}
+  {}
+
+\titlespacing*{\chapter}{0pt}{0.6em}{0.6em}
+\titlespacing*{\section}{0pt}{0.7em}{0.3em}
+\titlespacing*{\subsection}{0pt}{0.6em}{0.25em}
+
+\newtcolorbox{keybox}{
+  colback=themelight,
+  colframe=themeblue,
+  boxrule=0.6pt,
+  arc=1.5mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm
+}
+
+\newtcolorbox{tipbox}{
+  colback=white,
+  colframe=themegreen,
+  boxrule=0.6pt,
+  arc=1.5mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm
+}
+
+\newtcolorbox{riskbox}{
+  colback=white,
+  colframe=themeorange,
+  boxrule=0.6pt,
+  arc=1.5mm,
+  left=1.2mm,
+  right=1.2mm,
+  top=1mm,
+  bottom=1mm
+}
+
+\newcommand{\coverline}[1]{\vspace{0.35em}\noindent\textcolor{themegray}{#1}}
+
+\newcommand{\coursedialog}[2]{
+  \noindent\textbf{#1：}#2\par
+}
+
+\newcommand{\mystrong}[1]{\textbf{\color{titleblack}#1}}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}

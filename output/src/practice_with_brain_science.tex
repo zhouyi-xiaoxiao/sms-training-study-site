@@ -1,0 +1,598 @@
+\documentclass[UTF8,12pt,openany]{ctexbook}
+\usepackage{../style/sms_training_style}
+\usepackage{paracol}
+\newcommand{\ansbadge}[1]{\fcolorbox{themeblue}{themeblue!10}{\strut\textbf{\;#1\;}}}
+\newcommand{\ansline}[1]{\textbf{答案：}\ansbadge{#1}}
+\newcommand{\expline}[1]{\textbf{解释：}#1}
+
+\begin{document}
+\hypersetup{
+  pdftitle={企业短信知识题库（学习测评版）V3.0},
+  pdfauthor={整理：Codex},
+  pdfsubject={规则基线：SMS-CN-RULE-v2026.02 / SMS-INTL-RULE-v2026.02 / SMS-OPS-RULE-v2026.02}
+}
+
+\begin{titlepage}
+  \centering
+  {\fontsize{30}{36}\selectfont\bfseries\color{themeblue}企业短信知识题库（学习测评版）}\par
+  \vspace{1.1em}
+  {\Large 全知识点覆盖 · 可用于周测/岗前测/复盘测}\par
+  \vspace{1.5em}
+  \begin{keybox}
+  \mystrong{设计原则（基于记忆科学）}\par
+  \begin{itemize}
+    \item 测试效应：通过做题强化记忆提取路径。
+    \item 间隔重复：D0、D1、D3、D7、D14、D30滚动复习。
+    \item 交错练习：概念题、规则题、场景题、计算题混合训练。
+    \item 生成效应：先独立作答，再看答案解析。
+    \item 难度递进：从识记到应用到方案设计。
+  \end{itemize}
+  \end{keybox}
+  \vfill
+  \coverline{版本：V3.0（双栏题答版）}
+  \coverline{规则基线：SMS-CN-RULE-v2026.02 / SMS-INTL-RULE-v2026.02 / SMS-OPS-RULE-v2026.02}
+  \coverline{匿名等级：Release-L2（题目全部使用匿名案例）}
+  \coverline{整理时间：2026年2月8日}
+\end{titlepage}
+
+\tableofcontents
+\clearpage
+
+\chapter{使用说明与复习节奏}
+
+\section{训练方式}
+\begin{enumerate}
+  \item 第1轮（D0）：先做第2--5章，不看答案。
+  \item 第2轮（D1）：只重做错题与不确定题。
+  \item 第3轮（D3）：做第6章闪卡快问快答。
+  \item 第4轮（D7）：重做第4--5章场景与计算题。
+  \item 第5轮（D14）：全卷抽测（至少60题）。
+  \item 第6轮（D30）：闭卷复盘，目标正确率$\geq90\%$。
+\end{enumerate}
+
+\section{评分建议}
+\begin{itemize}
+  \item 单选题：每题1分。
+  \item 多选题：每题2分（全对得分，漏选错选不得分）。
+  \item 判断改错：每题1分（判断0.5+改错0.5）。
+  \item 场景与计算：每题4分。
+\end{itemize}
+
+\chapter{出版级作答口径（本版新增）}
+
+\section{术语统一（阅卷标准）}
+\begin{itemize}
+  \item 统一写“子端口（SubID）”，不以“扩展码/后缀码”作标准答案主写法。
+  \item 统一写“携号转网”，不以“企业号转码”作标准答案主写法。
+  \item 统一写“会员营销短信”，不以“会销”作标准答案主写法。
+  \item 统一写“状态回执（成功/失败）”，“未知”仅表示暂未返回。
+\end{itemize}
+
+\section{规则版本（判分基线）}
+\begin{longtable}{P{0.3\textwidth}P{0.24\textwidth}P{0.32\textwidth}}
+\toprule
+\mystrong{规则包} & \mystrong{版本} & \mystrong{判分覆盖} \\
+\midrule
+中国短信规则基线 & SMS-CN-RULE-v2026.02 & 计费、签名、回执、营销限制、风控 \\
+国际短信规则基线 & SMS-INTL-RULE-v2026.02 & Sender ID、回填率、国家差异 \\
+运营交付规则基线 & SMS-OPS-RULE-v2026.02 & 接入、压测、回执策略、重保 \\
+\bottomrule
+\end{longtable}
+
+\section{规则适用声明}
+本题库中的标准答案与判分口径，统一适用版本基线：
+SMS-CN-RULE-v2026.02、SMS-INTL-RULE-v2026.02、SMS-OPS-RULE-v2026.02。
+
+\section{匿名策略（题面合规）}
+\begin{itemize}
+  \item 题面统一使用“客户A/B/C”等匿名标识，不出现实名客户。
+  \item 场景描述仅保留行业特征与业务特征，避免可逆识别信息。
+  \item 解析中不出现真实客户名、私有项目代号和内部群信息。
+\end{itemize}
+
+\chapter{A卷：单项选择题（题答对照，左题右答）}
+\begin{longtable}{P{0.64\textwidth}P{0.3\textwidth}}
+\toprule
+\mystrong{题目（含选项）} & \mystrong{答案与解析} \\
+\midrule
+\textbf{1.} 企业短信本质上属于哪类关系？\par \textbf{A.} C2C\par \textbf{B.} B2C\par \textbf{C.} B2B\par \textbf{D.} G2C & \ansline{B}\par \expline{依据课程规则，正确项是“B2C”。} \\
+\midrule
+\textbf{2.} 国内短信签名的标准格式是：\par \textbf{A.} (签名)\par \textbf{B.} [签名]\par \textbf{C.} \texttt{【签名】}\par \textbf{D.} \texttt{<签名>} & \ansline{C}\par \expline{依据课程规则，正确项是“\texttt{【签名】}”。} \\
+\midrule
+\textbf{3.} 下列哪项不是可用于签名报备的合规主体（课程口径）？\par \textbf{A.} 企业全称\par \textbf{B.} 合规简称\par \textbf{C.} 申请中的商标\par \textbf{D.} 已核准商标 & \ansline{C}\par \expline{依据课程规则，正确项是“申请中的商标”。} \\
+\midrule
+\textbf{4.} 一个子端口与签名的关系是：\par \textbf{A.} 多对多\par \textbf{B.} 一对一\par \textbf{C.} 一对多\par \textbf{D.} 多对一 & \ansline{B}\par \expline{依据课程规则，正确项是“一对一”。} \\
+\midrule
+\textbf{5.} 营销短信统一退订尾缀是：\par \textbf{A.} 退订回T\par \textbf{B.} 拒收请回复R\par \textbf{C.} 回复0退订\par \textbf{D.} 回复TD & \ansline{B}\par \expline{依据课程规则，正确项是“拒收请回复R”。} \\
+\midrule
+\textbf{6.} 短信长度140字的计费条数应为：\par \textbf{A.} 1条\par \textbf{B.} 2条\par \textbf{C.} 3条\par \textbf{D.} 4条 & \ansline{C}\par \expline{依据课程规则，正确项是“3条”。} \\
+\midrule
+\textbf{7.} 计费字符中，以下哪项说法正确？\par \textbf{A.} 签名不计费\par \textbf{B.} 空格不计费\par \textbf{C.} 标点不计费\par \textbf{D.} 以上都不对 & \ansline{D}\par \expline{依据课程规则，正确项是“以上都不对”。} \\
+\midrule
+\textbf{8.} 关于“未知状态”，正确的是：\par \textbf{A.} 最终状态之一\par \textbf{B.} 无意义状态\par \textbf{C.} 暂未返回最终状态\par \textbf{D.} 一定失败 & \ansline{C}\par \expline{依据课程规则，正确项是“暂未返回最终状态”。} \\
+\midrule
+\textbf{9.} 课程口径中，对账状态通常以多久后为准？\par \textbf{A.} 12小时\par \textbf{B.} 24小时\par \textbf{C.} 48小时\par \textbf{D.} 72小时 & \ansline{D}\par \expline{依据课程规则，正确项是“72小时”。} \\
+\midrule
+\textbf{10.} 下列哪项最强调秒级时效？\par \textbf{A.} 会员营销\par \textbf{B.} 验证码\par \textbf{C.} 节日祝福\par \textbf{D.} 品牌宣传 & \ansline{B}\par \expline{依据课程规则，正确项是“验证码”。} \\
+\midrule
+\textbf{11.} 下列哪类客户通常对“固定尾号+总长度”更敏感？\par \textbf{A.} 小微商户\par \textbf{B.} 个人开发者\par \textbf{C.} 大型政企/国央企\par \textbf{D.} 校园社团 & \ansline{C}\par \expline{依据课程规则，正确项是“大型政企/国央企”。} \\
+\midrule
+\textbf{12.} 三网合一中的“三网”是指：\par \textbf{A.} 电商三平台\par \textbf{B.} 三个数据中心\par \textbf{C.} 移动联通电信\par \textbf{D.} 三个省份 & \ansline{C}\par \expline{依据课程规则，正确项是“移动联通电信”。} \\
+\midrule
+\textbf{13.} 码号证获取后要先做什么才可用于实际发送？\par \textbf{A.} 充值\par \textbf{B.} 落地\par \textbf{C.} 拉群\par \textbf{D.} 投诉备案 & \ansline{B}\par \expline{依据课程规则，正确项是“落地”。} \\
+\midrule
+\textbf{14.} 失败返还最典型对应哪类结算模式？\par \textbf{A.} 预付费\par \textbf{B.} 后付费\par \textbf{C.} 分期\par \textbf{D.} 年付 & \ansline{A}\par \expline{依据课程规则，正确项是“预付费”。} \\
+\midrule
+\textbf{15.} 用户回复R后平台通常会执行：\par \textbf{A.} 二次营销\par \textbf{B.} 加入退订黑名单\par \textbf{C.} 自动拉白\par \textbf{D.} 忽略上行 & \ansline{B}\par \expline{依据课程规则，正确项是“加入退订黑名单”。} \\
+\midrule
+\textbf{16.} 以下哪项更可能导致“成功率低但非平台故障”？\par \textbf{A.} 大量空号停机号\par \textbf{B.} 代码异常\par \textbf{C.} 通道断连\par \textbf{D.} 机房断电 & \ansline{A}\par \expline{依据课程规则，正确项是“大量空号停机号”。} \\
+\midrule
+\textbf{17.} 客户只要求测试平台接入能力时，常见压测方式是：\par \textbf{A.} 真机拨测\par \textbf{B.} 通道配空\par \textbf{C.} 全量上生产\par \textbf{D.} 仅人工审核 & \ansline{B}\par \expline{依据课程规则，正确项是“通道配空”。} \\
+\midrule
+\textbf{18.} 全链路压测常用的号码策略是：\par \textbf{A.} 全真号\par \textbf{B.} 全白名单\par \textbf{C.} 空号压测\par \textbf{D.} 内部号 & \ansline{C}\par \expline{依据课程规则，正确项是“空号压测”。} \\
+\midrule
+\textbf{19.} 以下哪项最可能需要“限流回推状态”？\par \textbf{A.} 小客户日发几十条\par \textbf{B.} 大客户峰值QPS很高\par \textbf{C.} 新注册客户\par \textbf{D.} 静态通知 & \ansline{B}\par \expline{依据课程规则，正确项是“大客户峰值QPS很高”。} \\
+\midrule
+\textbf{20.} 国际短信品牌识别核心字段是：\par \textbf{A.} Sender ID\par \textbf{B.} Signature ID\par \textbf{C.} Route ID\par \textbf{D.} Channel ID & \ansline{A}\par \expline{依据课程规则，正确项是“Sender ID”。} \\
+\midrule
+\textbf{21.} 国际验证码最常见核心效果指标是：\par \textbf{A.} UV\par \textbf{B.} PV\par \textbf{C.} 回填率\par \textbf{D.} 打开率 & \ansline{C}\par \expline{依据课程规则，正确项是“回填率”。} \\
+\midrule
+\textbf{22.} 下列哪项是平台侧常见风控策略？\par \textbf{A.} 黑名单\par \textbf{B.} 关键词\par \textbf{C.} 单号码频控\par \textbf{D.} 以上都是 & \ansline{D}\par \expline{依据课程规则，正确项是“以上都是”。} \\
+\midrule
+\textbf{23.} 会员营销短信的前提是：\par \textbf{A.} 任何手机号都可\par \textbf{B.} 只要买量就可\par \textbf{C.} 用户与企业存在会员关系与授权\par \textbf{D.} 只要是促销季 & \ansline{C}\par \expline{依据课程规则，正确项是“用户与企业存在会员关系与授权”。} \\
+\midrule
+\textbf{24.} 下列哪种情况最可能触发“多签名”风险？\par \textbf{A.} 正文含数字\par \textbf{B.} 正文再使用方头括号\par \textbf{C.} 正文有空格\par \textbf{D.} 正文有英文 & \ansline{B}\par \expline{依据课程规则，正确项是“正文再使用方头括号”。} \\
+\midrule
+\textbf{25.} 平台中“提交回执”指：\par \textbf{A.} 终端已收到短信\par \textbf{B.} 运营商已计费\par \textbf{C.} 平台已收到客户提交\par \textbf{D.} 用户已回复 & \ansline{C}\par \expline{依据课程规则，正确项是“平台已收到客户提交”。} \\
+\midrule
+\textbf{26.} 下列哪类短信通常不宜重人工审核？\par \textbf{A.} 会员营销\par \textbf{B.} 高危金融营销\par \textbf{C.} 验证码\par \textbf{D.} 节日活动 & \ansline{C}\par \expline{依据课程规则，正确项是“验证码”。} \\
+\midrule
+\textbf{27.} 以下哪个不是典型投诉入口？\par \textbf{A.} 12321\par \textbf{B.} 运营商客服\par \textbf{C.} 通管局\par \textbf{D.} 气象台 & \ansline{D}\par \expline{依据课程规则，正确项是“气象台”。} \\
+\midrule
+\textbf{28.} 电商客户在618、双11时更关注：\par \textbf{A.} 静态美工\par \textbf{B.} QPS承载与稳定性\par \textbf{C.} 语音资费\par \textbf{D.} 国际区号 & \ansline{B}\par \expline{依据课程规则，正确项是“QPS承载与稳定性”。} \\
+\midrule
+\textbf{29.} 课程中“有效号码”概念强调的是：\par \textbf{A.} 任何格式正确号码\par \textbf{B.} 可真实触达并可接收短信的号码\par \textbf{C.} 白名单号码\par \textbf{D.} 短号 & \ansline{B}\par \expline{依据课程规则，正确项是“可真实触达并可接收短信的号码”。} \\
+\midrule
+\textbf{30.} 携号转网的含义是：\par \textbf{A.} 改手机号\par \textbf{B.} 改签名\par \textbf{C.} 号码不变、运营商归属变更\par \textbf{D.} 改套餐 & \ansline{C}\par \expline{依据课程规则，正确项是“号码不变、运营商归属变更”。} \\
+\midrule
+\textbf{31.} 有携转库时，平台的更优做法是：\par \textbf{A.} 永远按号段发\par \textbf{B.} 按当前归属网发\par \textbf{C.} 随机发\par \textbf{D.} 全部失败 & \ansline{B}\par \expline{依据课程规则，正确项是“按当前归属网发”。} \\
+\midrule
+\textbf{32.} 影响利润最直接的四因子中不包括：\par \textbf{A.} 单价\par \textbf{B.} 计费口径\par \textbf{C.} 通道复杂度\par \textbf{D.} 办公区楼层 & \ansline{D}\par \expline{依据课程规则，正确项是“办公区楼层”。} \\
+\midrule
+\textbf{33.} 对小微客户更推荐的接入方式通常是：\par \textbf{A.} 深度定制平台\par \textbf{B.} Web自服务\par \textbf{C.} 私有化全套\par \textbf{D.} 仅线下导入 & \ansline{B}\par \expline{依据课程规则，正确项是“Web自服务”。} \\
+\midrule
+\textbf{34.} 以下哪项最可能导致通道健康受损？\par \textbf{A.} 投诉超限\par \textbf{B.} 日常优化\par \textbf{C.} 账号加白\par \textbf{D.} 成功率高 & \ansline{A}\par \expline{依据课程规则，正确项是“投诉超限”。} \\
+\midrule
+\textbf{35.} 大客户为何常需要状态回执“限速回推”？\par \textbf{A.} 省流量\par \textbf{B.} 回执处理系统承载有限\par \textbf{C.} 便于营销\par \textbf{D.} 无意义 & \ansline{B}\par \expline{依据课程规则，正确项是“回执处理系统承载有限”。} \\
+\midrule
+\textbf{36.} 下列哪项是阅信的典型优势？\par \textbf{A.} 纯文本无交互\par \textbf{B.} 卡片化展示与跳转能力\par \textbf{C.} 不需要报备链接\par \textbf{D.} 仅支持苹果 & \ansline{B}\par \expline{依据课程规则，正确项是“卡片化展示与跳转能力”。} \\
+\midrule
+\textbf{37.} 阅信在iOS上的常见体验是：\par \textbf{A.} 自动卡片直开\par \textbf{B.} 常需点击链接后呈现\par \textbf{C.} 彻底无法接收\par \textbf{D.} 自动转语音 & \ansline{B}\par \expline{依据课程规则，正确项是“常需点击链接后呈现”。} \\
+\midrule
+\textbf{38.} 富媒体短信相较文本短信最典型特点是：\par \textbf{A.} 更便宜\par \textbf{B.} 展示更丰富但通常更贵\par \textbf{C.} 不支持图文\par \textbf{D.} 仅通知可用 & \ansline{B}\par \expline{依据课程规则，正确项是“展示更丰富但通常更贵”。} \\
+\midrule
+\textbf{39.} 下列关于“未知率”说法正确的是：\par \textbf{A.} 越高越好\par \textbf{B.} 正常应较低且随时间收敛\par \textbf{C.} 永不变化\par \textbf{D.} 与链路无关 & \ansline{B}\par \expline{依据课程规则，正确项是“正常应较低且随时间收敛”。} \\
+\midrule
+\textbf{40.} 客户要求“主动拉取状态”，平台通常会重点评估：\par \textbf{A.} 客户字体偏好\par \textbf{B.} 资源占用与安全隔离\par \textbf{C.} 客户Logo颜色\par \textbf{D.} 话术风格 & \ansline{B}\par \expline{依据课程规则，正确项是“资源占用与安全隔离”。} \\
+\midrule
+\textbf{41.} 下列哪项最符合“批量测试”定义？\par \textbf{A.} 只发1条验证码\par \textbf{B.} 切一部分真实业务观察多天\par \textbf{C.} 不做任何测试\par \textbf{D.} 只看报价 & \ansline{B}\par \expline{依据课程规则，正确项是“切一部分真实业务观察多天”。} \\
+\midrule
+\textbf{42.} 渠道客户合作的核心通常是：\par \textbf{A.} 装修风格\par \textbf{B.} 资源能力与成本效率\par \textbf{C.} 节日礼物\par \textbf{D.} 办公地点 & \ansline{B}\par \expline{渠道合作本质是“资源与成本效率匹配”，而不是品牌或行政因素。} \\
+\midrule
+\textbf{43.} 下列哪项最能体现“平台级交付能力”？\par \textbf{A.} 临时群聊\par \textbf{B.} 私有化部署与持续运维\par \textbf{C.} 单次报价\par \textbf{D.} 单次演示 & \ansline{B}\par \expline{依据课程规则，正确项是“私有化部署与持续运维”。} \\
+\midrule
+\textbf{44.} 对客户承诺成功率时最正确表述是：\par \textbf{A.} 永远100\%\par \textbf{B.} 不看号码质量\par \textbf{C.} 在有效号码前提下承诺\par \textbf{D.} 不做任何说明 & \ansline{C}\par \expline{成功率承诺必须以“有效号码、可触达号码”作为前提条件。} \\
+\midrule
+\textbf{45.} 以下哪项属于“引流信息”需报备要素？\par \textbf{A.} 链接与电话号码\par \textbf{B.} 仅标点\par \textbf{C.} 仅签名\par \textbf{D.} 仅空格 & \ansline{A}\par \expline{引流信息的核心是“可引导触达”的要素，典型就是链接与电话号码。} \\
+\midrule
+\textbf{46.} 若客户每天发送量极低，最合理服务策略是：\par \textbf{A.} 强制私有化\par \textbf{B.} 标准化自服务+预付优先\par \textbf{C.} 先压测1万QPS\par \textbf{D.} 关闭回执 & \ansline{B}\par \expline{依据课程规则，正确项是“标准化自服务+预付优先”。} \\
+\midrule
+\textbf{47.} 错误码释义表最准确的说法是：\par \textbf{A.} 一定100\%唯一准确\par \textbf{B.} 仅作参考，需结合通道核实\par \textbf{C.} 完全没用\par \textbf{D.} 与运营无关 & \ansline{B}\par \expline{依据课程规则，正确项是“仅作参考，需结合通道核实”。} \\
+\midrule
+\textbf{48.} 对于高危营销账号，单号码频控策略通常是：\par \textbf{A.} 更宽松\par \textbf{B.} 更严格\par \textbf{C.} 与验证码一样\par \textbf{D.} 不设限制 & \ansline{B}\par \expline{依据课程规则，正确项是“更严格”。} \\
+\midrule
+\textbf{49.} 下列哪项最符合“测试效应”学习法？\par \textbf{A.} 只看不做题\par \textbf{B.} 做题后再看解析\par \textbf{C.} 永远不复习\par \textbf{D.} 只收藏 & \ansline{B}\par \expline{测试效应强调“先提取再反馈”，即先作答、再核对解析。} \\
+\midrule
+\textbf{50.} 课程建议的复习节奏中不包括：\par \textbf{A.} D1复习\par \textbf{B.} D3复习\par \textbf{C.} D7复习\par \textbf{D.} D365单次复习 & \ansline{D}\par \expline{本课节奏为 D0/D1/D3/D7/D14/D30，不包含 D365 单次复习。} \\
+\midrule
+\textbf{51.} 若客户投诉“我不是会员却收到营销”，第一风险归因是：\par \textbf{A.} 计费过高\par \textbf{B.} 隐私与合规风险\par \textbf{C.} 接口版本\par \textbf{D.} 字体问题 & \ansline{B}\par \expline{依据课程规则，正确项是“隐私与合规风险”。} \\
+\midrule
+\textbf{52.} 下列哪项最体现“销售前置价值”？\par \textbf{A.} 只谈价格\par \textbf{B.} 提前问清码号、量级、投诉、回执、QPS\par \textbf{C.} 只发合同\par \textbf{D.} 只拉技术群 & \ansline{B}\par \expline{前置把关键变量问清，才能让报价、资源和上线方案一次性做对。} \\
+\midrule
+\textbf{53.} 平台对验证码轰炸的核心防护是：\par \textbf{A.} 提高价格\par \textbf{B.} 防轰炸频控策略\par \textbf{C.} 取消回执\par \textbf{D.} 关闭上行 & \ansline{B}\par \expline{依据课程规则，正确项是“防轰炸频控策略”。} \\
+\midrule
+\textbf{54.} 国际短信中可能存在的额外成本是：\par \textbf{A.} 国家报备注册费/月租\par \textbf{B.} 机房水费\par \textbf{C.} 办公室停车费\par \textbf{D.} 内网设备折旧 & \ansline{A}\par \expline{国际路由常见附加成本是国家侧注册费、品牌报备费或月租费。} \\
+\midrule
+\textbf{55.} 下列哪个更像“运营持续调优”工作？\par \textbf{A.} 一次性开账号后不管\par \textbf{B.} 根据投诉和成功率动态调黑白名单与通道权重\par \textbf{C.} 仅看月报\par \textbf{D.} 仅看合同 & \ansline{B}\par \expline{依据课程规则，正确项是“根据投诉和成功率动态调黑白名单与通道权重”。} \\
+\midrule
+\textbf{56.} 客户要求“状态只拉不推”时，不应忽略的风险是：\par \textbf{A.} 客户忘记拉取导致堆积\par \textbf{B.} 文案变好\par \textbf{C.} 推送更快\par \textbf{D.} 无风险 & \ansline{A}\par \expline{若客户拉取任务异常或漏拉，状态会在平台堆积并影响后续查询与核对。} \\
+\midrule
+\textbf{57.} 下列哪项属于“上线前必须确认项”？\par \textbf{A.} 头像尺寸\par \textbf{B.} 签名和引流报备结果\par \textbf{C.} 名片样式\par \textbf{D.} 工位数量 & \ansline{B}\par \expline{依据课程规则，正确项是“签名和引流报备结果”。} \\
+\midrule
+\textbf{58.} 下列关于私有化部署客户的特点，正确的是：\par \textbf{A.} 粘性通常更低\par \textbf{B.} 粘性通常更高\par \textbf{C.} 不需要运维\par \textbf{D.} 只做一次性交付 & \ansline{B}\par \expline{依据课程规则，正确项是“粘性通常更高”。} \\
+\midrule
+\textbf{59.} 最能体现“交错练习”的做法是：\par \textbf{A.} 连续做100道同类型记忆题\par \textbf{B.} 概念题与计算题、场景题混做\par \textbf{C.} 只看答案\par \textbf{D.} 只听课 & \ansline{B}\par \expline{依据课程规则，正确项是“概念题与计算题、场景题混做”。} \\
+\midrule
+\textbf{60.} 对外发布前，关于版本一致性的正确做法是：\par \textbf{A.} 只改封面不改元信息\par \textbf{B.} PDF元信息与封面版本保持一致\par \textbf{C.} 版本号可省略\par \textbf{D.} 仅对内文标注版本 & \ansline{B}\par \expline{依据课程规则，正确项是“PDF元信息与封面版本保持一致”。} \\
+\bottomrule
+\end{longtable}
+\chapter{B卷：多项选择题（题答对照，左题右答）}
+\begin{longtable}{P{0.64\textwidth}P{0.3\textwidth}}
+\toprule
+\mystrong{题目（含选项）} & \mystrong{答案与解析} \\
+\midrule
+\textbf{1.} 国内企业短信签名报备可用来源通常包括（ ）。\par \textbf{A.} 企业全称\par \textbf{B.} 合规简称\par \textbf{C.} 已核准商标\par \textbf{D.} 申请中商标 & \ansline{ABC}\par \expline{本题应选择 A、B、C，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{2.} 影响成功率的常见因素有（ ）。\par \textbf{A.} 空号停机\par \textbf{B.} 黑名单命中\par \textbf{C.} 关键词拦截\par \textbf{D.} 终端无信号 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{3.} 营销短信合规关键点包括（ ）。\par \textbf{A.} 会员前提\par \textbf{B.} 退订口径\par \textbf{C.} 时间窗控制\par \textbf{D.} 频控策略 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{4.} 客户接入前销售应重点确认（ ）。\par \textbf{A.} 业务场景和量级\par \textbf{B.} 码号需求\par \textbf{C.} 投诉历史\par \textbf{D.} 回执方式 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{5.} 压测前需确认（ ）。\par \textbf{A.} 目标QPS\par \textbf{B.} 测试时段与时长\par \textbf{C.} 压测模式\par \textbf{D.} 是否影响线上业务 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{6.} 状态回执策略可包括（ ）。\par \textbf{A.} 实时推送\par \textbf{B.} 限速推送\par \textbf{C.} 客户主动拉取\par \textbf{D.} 关闭所有回执 & \ansline{ABC}\par \expline{本题应选择 A、B、C，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{7.} 以下哪些属于平台风控机制（ ）。\par \textbf{A.} 黑名单\par \textbf{B.} 白名单\par \textbf{C.} 关键词\par \textbf{D.} 防轰炸 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{8.} 下列哪些属于“引流信息”需报备项（ ）。\par \textbf{A.} 链接\par \textbf{B.} 电话号码\par \textbf{C.} 纯标点\par \textbf{D.} 无内容空格 & \ansline{AB}\par \expline{本题应选择 A、B，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{9.} 国际短信中常见的国家差异项有（ ）。\par \textbf{A.} Sender ID规则\par \textbf{B.} 退订规则\par \textbf{C.} 报备材料\par \textbf{D.} 费用结构 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{10.} 下列哪些场景更强调通知而非营销（ ）。\par \textbf{A.} 动账提醒\par \textbf{B.} 物流取件码\par \textbf{C.} 系统维护通知\par \textbf{D.} 双11促销 & \ansline{ABC}\par \expline{本题应选择 A、B、C，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{11.} 长短信对账争议常与哪些因素相关（ ）。\par \textbf{A.} 分片计费\par \textbf{B.} 补发策略\par \textbf{C.} 回执口径\par \textbf{D.} 容差规则 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{12.} 可用于说明“未知不是最终状态”的证据有（ ）。\par \textbf{A.} 72小时内未知会收敛\par \textbf{B.} 未知可转成功/失败\par \textbf{C.} 未知永不变化\par \textbf{D.} 未知本质是暂未返回 & \ansline{ABD}\par \expline{本题应选择 A、B、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{13.} 对大中直客的服务重点通常包括（ ）。\par \textbf{A.} 重保\par \textbf{B.} 快速响应\par \textbf{C.} 定制能力\par \textbf{D.} 数据报告 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{14.} 以下哪些可作为小微客户策略（ ）。\par \textbf{A.} Web自服务\par \textbf{B.} 预付优先\par \textbf{C.} 标准流程\par \textbf{D.} 全部私有化 & \ansline{ABC}\par \expline{本题应选择 A、B、C，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{15.} 下列哪些属于投诉治理动作（ ）。\par \textbf{A.} 收集会员证明\par \textbf{B.} 核实隐私授权\par \textbf{C.} 优化频控与黑名单策略\par \textbf{D.} 长期忽略投诉 & \ansline{ABC}\par \expline{本题应选择 A、B、C，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{16.} 可导致“映射释义不完全准确”的原因有（ ）。\par \textbf{A.} 三方通道同码异义\par \textbf{B.} 运营商同码多义\par \textbf{C.} 通道策略差异\par \textbf{D.} 客户接口差异 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{17.} 以下哪些属于“上线前必须完成”的内容（ ）。\par \textbf{A.} 报备完成\par \textbf{B.} 回执策略确认\par \textbf{C.} 风控参数确认\par \textbf{D.} 应急联系人确认 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{18.} 阅信相较纯文本可新增的能力有（ ）。\par \textbf{A.} 卡片化展示\par \textbf{B.} 一键跳APP\par \textbf{C.} 点击追踪\par \textbf{D.} 解析统计 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{19.} 关于携号转网，正确的有（ ）。\par \textbf{A.} 号段与当前归属网可能不一致\par \textbf{B.} 有携转库时可按当前归属网投递\par \textbf{C.} MO回传在部分链路有差异\par \textbf{D.} 与三网合一无关 & \ansline{ABC}\par \expline{本题应选择 A、B、C，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{20.} 平台后台运营的主要工作包括（ ）。\par \textbf{A.} 通道池调度\par \textbf{B.} 监控告警\par \textbf{C.} 投诉控制\par \textbf{D.} 平台迭代 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{21.} 计费相关客户高频问题通常有（ ）。\par \textbf{A.} 签名是否计费\par \textbf{B.} 括号是否计费\par \textbf{C.} 140字为何3条\par \textbf{D.} 空格是否计费 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{22.} 对“回填率”理解正确的有（ ）。\par \textbf{A.} 多用于国际验证码场景\par \textbf{B.} 是实际填写验证码比例\par \textbf{C.} 等同于平台提交成功率\par \textbf{D.} 可用于评估链路质量 & \ansline{ABD}\par \expline{本题应选择 A、B、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{23.} 影响利润的关键可控动作包括（ ）。\par \textbf{A.} 优化计费口径\par \textbf{B.} 提升有效触达\par \textbf{C.} 合理匹配通道成本\par \textbf{D.} 强化客户结构管理 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{24.} 属于脑科学高效学习策略的有（ ）。\par \textbf{A.} 间隔重复\par \textbf{B.} 主动回忆\par \textbf{C.} 交错练习\par \textbf{D.} 只被动阅读 & \ansline{ABC}\par \expline{本题应选择 A、B、C，对应题干要求的完整要点集合。} \\
+\midrule
+\textbf{25.} 下列哪些情况应立即升级协同（销售+运营+技术）（ ）。\par \textbf{A.} 大客户压测上万QPS\par \textbf{B.} 大面积成功率异常\par \textbf{C.} 投诉突增\par \textbf{D.} 关键客户节前重保 & \ansline{ABCD}\par \expline{本题应选择 A、B、C、D，对应题干要求的完整要点集合。} \\
+\bottomrule
+\end{longtable}
+\chapter{C卷：判断改错题（题答对照，左题右答）}
+\begin{longtable}{P{0.6\textwidth}P{0.34\textwidth}}
+\toprule
+\mystrong{题目} & \mystrong{答案与改错} \\
+\midrule
+\textbf{1.} “未知状态就是第三种最终状态。”（对/错，并改错） & 错。未知是“暂未返回”，非终态。 \\
+\midrule
+\textbf{2.} “营销短信可以不给退订口径。”（对/错，并改错） & 错。营销短信必须有统一退订口径。 \\
+\midrule
+\textbf{3.} “140字短信按2条计费。”（对/错，并改错） & 错。140字按67分片，计3条。 \\
+\midrule
+\textbf{4.} “一个子端口可同时对应多个签名。”（对/错，并改错） & 错。子端口与签名是一对一。 \\
+\midrule
+\textbf{5.} “正文再次使用方头括号不会有风险。”（对/错，并改错） & 错。可能触发多签名风险。 \\
+\midrule
+\textbf{6.} “只要有码号证就能直接发短信。”（对/错，并改错） & 错。需完成运营商落地后才能发送。 \\
+\midrule
+\textbf{7.} “三网合一一定比普通资源便宜。”（对/错，并改错） & 错。三网合一通常更贵。 \\
+\midrule
+\textbf{8.} “验证码短信时效不敏感。”（对/错，并改错） & 错。验证码对时效高度敏感。 \\
+\midrule
+\textbf{9.} “白名单号码也会完全受日频限制。”（对/错，并改错） & 错。白名单可放宽部分限制。 \\
+\midrule
+\textbf{10.} “黑名单都可以一键解除。”（对/错，并改错） & 错。黑名单分级，非全部可解。 \\
+\midrule
+\textbf{11.} “国际短信各国规则基本一样。”（对/错，并改错） & 错。各国规则差异显著。 \\
+\midrule
+\textbf{12.} “回填率主要用于国际验证码评估。”（对/错，并改错） & 对。 \\
+\midrule
+\textbf{13.} “客户主动拉取状态不会占用平台资源。”（对/错，并改错） & 错。主动拉取会占用平台资源。 \\
+\midrule
+\textbf{14.} “批量测试通常要跑一段真实业务观察。”（对/错，并改错） & 对。 \\
+\midrule
+\textbf{15.} “小微客户一般更适合先上私有化部署。”（对/错，并改错） & 错。小微客户一般先用自服务。 \\
+\midrule
+\textbf{16.} “成功率承诺可以不考虑号码质量。”（对/错，并改错） & 错。需以有效号码为前提。 \\
+\midrule
+\textbf{17.} “引流链接不需要报备。”（对/错，并改错） & 错。引流链接需报备。 \\
+\midrule
+\textbf{18.} “高危营销的频控通常会更严格。”（对/错，并改错） & 对。 \\
+\midrule
+\textbf{19.} “投诉治理与销售无关，只是运营的事。”（对/错，并改错） & 错。销售需协助投诉证据链。 \\
+\midrule
+\textbf{20.} “测试效应强调做题本身能强化记忆。”（对/错，并改错） & 对。 \\
+\bottomrule
+\end{longtable}
+\chapter{D卷：场景题与计算题（题答对照，左题右答）}
+\section{场景题（8题）}
+\begin{longtable}{P{0.6\textwidth}P{0.34\textwidth}}
+\toprule
+\mystrong{题目} & \mystrong{参考答案} \\
+\midrule
+\textbf{1.} 客户A说“我们不需要任何码号要求”，上线后又要求“固定尾号+总长不超11位+三网一致”。你作为销售如何补救并与运营协同？ & 先补充需求澄清单并与客户确认；再由运营评估可用码号池和三网一致性成本，形成变更报价与交期。 \\
+\midrule
+\textbf{2.} 客户B为高频营销行业，投诉持续升高，成功率也在下降。请给出“合规+成功率+成本”三目标下的调优方案。 & 先控投诉（会员与模板审计、频控收紧、黑名单策略）；再提升成功率（通道权重与地区策略调优）；最后回看成本并做分层路由。 \\
+\midrule
+\textbf{3.} 客户C要求“只拉状态不推状态”，并在一周后反馈“状态数据不全”。请分析最可能原因与修复方案。 & 排查是否“未拉取、拉取失败、拉取窗口不一致”；补充拉取监控告警、失败重试与数据留存策略。 \\
+\midrule
+\textbf{4.} 客户D做618大促，计划2小时内持续3000 QPS。请给出接入前检查项与压测方案。 & 明确QPS、时段、时长、压测模式、回执模式；先压测再灰度扩量，并设置应急回滚与专人值守。 \\
+\midrule
+\textbf{5.} 客户E反馈“同一批数据，上午查和下午查成功率不一样”。请用状态机制解释。 & 解释未知状态会在72小时内收敛，上午与下午查询窗口不同导致结果波动。 \\
+\midrule
+\textbf{6.} 客户F做国际验证码，提出“为什么成功率还行但回填率低”。给出至少4个排查维度。 & 排查通道质量、时延、国家规则、终端可达、验证码有效期与页面体验。 \\
+\midrule
+\textbf{7.} 客户G坚持营销短信晚11点发。给出两种平台处理策略，并分析业务利弊。 & 两种策略：直接失败或延时到次日窗口；前者合规最稳，后者业务体验更好但需客户接受延迟。 \\
+\midrule
+\textbf{8.} 客户H提出“同一个签名要绑定多个活动链接”。你如何设计子端口与引流报备方案？ & 同签名多活动需要多子端口拆分；每个子端口绑定固定引流信息并完成报备。 \\
+\bottomrule
+\end{longtable}
+\section{计算题（7题）}
+\begin{longtable}{P{0.6\textwidth}P{0.34\textwidth}}
+\toprule
+\mystrong{题目} & \mystrong{标准答案} \\
+\midrule
+\textbf{1.} 某短信126字，按课程计费规则应计费多少条？ & 2条（$\lceil126/67\rceil=2$）。 \\
+\midrule
+\textbf{2.} 某客户提交10000条，72小时后成功9200、失败700、未知100（仍未回）。在“成功计费”与“失败不计费（成功+未知计费）”两种模式下分别计费多少条？ & 成功计费=9200；失败不计费（成功+未知计费）=9300。 \\
+\midrule
+\textbf{3.} 某账号单号日上限10条。某号码当日已收8条通知，再发5条验证码，最多还能成功几条（不考虑其他限制）？ & 最多2条。 \\
+\midrule
+\textbf{4.} 某国际验证码通道提交5000条，回填3200条，回填率是多少？ & 64\%（$3200/5000$）。 \\
+\midrule
+\textbf{5.} 某客户发140字长短信1000次，全部一次成功。按课程规则总计费条数是多少？ & 3000条（每条140字计3条）。 \\
+\midrule
+\textbf{6.} 某客户发140字短信1000次，其中每次第一轮“1片成功1片失败”，第二轮仅补发失败片且全部成功。总计费条数是多少（按分片成功计费）？ & 2000条（每次2条，1000次）。 \\
+\midrule
+\textbf{7.} 某运营周报显示：周一未知率2.5\%，周二0.9\%，周三0.8\%。从健康度看哪一天风险最高？ & 周一风险最高。 \\
+\bottomrule
+\end{longtable}
+\chapter{E卷：闪卡快问快答（81题，题答对照）}
+\begin{longtable}{P{0.56\textwidth}P{0.38\textwidth}}
+\toprule
+\mystrong{问题} & \mystrong{答案} \\
+\midrule
+\textbf{1.} 企业短信核心关系？ & B2C。 \\
+\midrule
+\textbf{2.} 国内签名标准格式？ & \texttt{【签名】}。 \\
+\midrule
+\textbf{3.} 营销退订统一文案？ & 拒收请回复R。 \\
+\midrule
+\textbf{4.} 67字以内计费规则？ & $\leq67$字计1条。 \\
+\midrule
+\textbf{5.} 超67字拆分规则？ & $>67$字按67字分片。 \\
+\midrule
+\textbf{6.} 140字计费条数？ & 3条。 \\
+\midrule
+\textbf{7.} 签名是否计费？ & 计费。 \\
+\midrule
+\textbf{8.} 空格是否计费？ & 计费。 \\
+\midrule
+\textbf{9.} 标点是否计费？ & 计费。 \\
+\midrule
+\textbf{10.} 未知是不是最终状态？ & 不是。 \\
+\midrule
+\textbf{11.} 对账常用状态窗口？ & 72小时。 \\
+\midrule
+\textbf{12.} 子端口到签名关系？ & 一对一。 \\
+\midrule
+\textbf{13.} 一个签名可否多个端口？ & 可以（一签名可多子端口）。 \\
+\midrule
+\textbf{14.} 什么是三网合一？ & 三网发件标识一致。 \\
+\midrule
+\textbf{15.} 三网分别是？ & 移动、联通、电信。 \\
+\midrule
+\textbf{16.} 码号证后下一步？ & 落地成通道。 \\
+\midrule
+\textbf{17.} MT是什么意思？ & 下行短信。 \\
+\midrule
+\textbf{18.} MO是什么意思？ & 上行短信。 \\
+\midrule
+\textbf{19.} 提交回执定义？ & 平台已接收请求。 \\
+\midrule
+\textbf{20.} 状态回执定义？ & 成功/失败回执。 \\
+\midrule
+\textbf{21.} 会员营销前提？ & 会员关系+授权。 \\
+\midrule
+\textbf{22.} 验证码首要指标？ & 秒级时效与到达。 \\
+\midrule
+\textbf{23.} 通知短信典型场景？ & 动账、物流、工单等。 \\
+\midrule
+\textbf{24.} 电商高峰期关注什么？ & QPS承载与稳定性。 \\
+\midrule
+\textbf{25.} 黑名单作用？ & 拦截高风险/投诉号。 \\
+\midrule
+\textbf{26.} 白名单作用？ & 对测试/重保号放行。 \\
+\midrule
+\textbf{27.} 上行R通常触发什么？ & 加入退订黑名单。 \\
+\midrule
+\textbf{28.} 关键词机制目的？ & 内容合规拦截。 \\
+\midrule
+\textbf{29.} 防轰炸机制目的？ & 防恶意验证码轰炸。 \\
+\midrule
+\textbf{30.} 高危营销频控通常如何？ & 更严格。 \\
+\midrule
+\textbf{31.} 营销发送时间常规窗口？ & 常规早8晚10。 \\
+\midrule
+\textbf{32.} 晚间提交营销可怎么处理？ & 失败或延时到次日窗口。 \\
+\midrule
+\textbf{33.} 引流信息包含什么？ & 链接、电话号码。 \\
+\midrule
+\textbf{34.} 引流信息是否需报备？ & 需要报备。 \\
+\midrule
+\textbf{35.} 国际品牌识别字段？ & Sender ID。 \\
+\midrule
+\textbf{36.} 国际验证码核心指标？ & 回填率。 \\
+\midrule
+\textbf{37.} 回填率定义？ & 填回验证码比例。 \\
+\midrule
+\textbf{38.} 有效号码定义要点？ & 可触达可接收。 \\
+\midrule
+\textbf{39.} 空号属于有效号码吗？ & 不属于。 \\
+\midrule
+\textbf{40.} 飞行模式会影响什么？ & 影响接收（失败/延迟）。 \\
+\midrule
+\textbf{41.} 携号转网定义？ & 号不变、归属网变。 \\
+\midrule
+\textbf{42.} 有携转库应按什么发？ & 按当前归属网下发。 \\
+\midrule
+\textbf{43.} 主动拉取状态风险？ & 资源占用与堆积风险。 \\
+\midrule
+\textbf{44.} 状态限流回推适用谁？ & 高QPS大客户。 \\
+\midrule
+\textbf{45.} 错误码映射是否绝对准确？ & 不是，只作参考。 \\
+\midrule
+\textbf{46.} 失败返还常见于哪类结算？ & 预付费。 \\
+\midrule
+\textbf{47.} 大客户服务四要素？ & 重保、响应、定制、报告。 \\
+\midrule
+\textbf{48.} 小微客户优先接入方式？ & Web自服务。 \\
+\midrule
+\textbf{49.} 压测前必问三件事？ & QPS、时段时长、压测模式。 \\
+\midrule
+\textbf{50.} 批测的本质？ & 小规模真实业务观察。 \\
+\midrule
+\textbf{51.} 私有化客户粘性通常如何？ & 通常更高。 \\
+\midrule
+\textbf{52.} 投诉治理要不要销售参与？ & 要参与。 \\
+\midrule
+\textbf{53.} 12321是什么？ & 工信部投诉受理渠道。 \\
+\midrule
+\textbf{54.} 通道健康受什么强影响？ & 投诉指标/百投比。 \\
+\midrule
+\textbf{55.} 三方通道错误码特点？ & 同码可能异义。 \\
+\midrule
+\textbf{56.} 电信错误码常见难点？ & 常见同码多义。 \\
+\midrule
+\textbf{57.} 长短信对账为什么易争议？ & 分片计费与口径差异。 \\
+\midrule
+\textbf{58.} 只回一条状态会带来什么风险？ & 造成账单偏差风险。 \\
+\midrule
+\textbf{59.} 阅信与文本主要差异？ & 卡片化+可跳转。 \\
+\midrule
+\textbf{60.} 阅信在iOS常见体验？ & 常需先点链接。 \\
+\midrule
+\textbf{61.} 富媒体核心优势？ & 展示更丰富但更贵。 \\
+\midrule
+\textbf{62.} 5G消息主要瓶颈之一？ & 终端覆盖限制。 \\
+\midrule
+\textbf{63.} 平台监控至少看哪三项？ & 成功率、未知率、QPS/时延。 \\
+\midrule
+\textbf{64.} 上线前核对至少哪三项？ & 报备、回执、风控参数。 \\
+\midrule
+\textbf{65.} 合同里最好约定什么口径？ & 计费口径与回执口径。 \\
+\midrule
+\textbf{66.} 销售最该提前确认什么？ & 量级、码号、投诉、QPS等。 \\
+\midrule
+\textbf{67.} 影响利润四因子？ & 单价、计费口径、通道成本、成功率。 \\
+\midrule
+\textbf{68.} 测试效应一句话定义？ & 做题提取强化记忆。 \\
+\midrule
+\textbf{69.} 间隔重复一句话定义？ & 分时多轮重复复习。 \\
+\midrule
+\textbf{70.} 交错练习一句话定义？ & 概念题与计算题混练。 \\
+\midrule
+\textbf{71.} D1复习做什么？ & 重做错题和不确定题。 \\
+\midrule
+\textbf{72.} D7复习做什么？ & 重做场景题与计算题。 \\
+\midrule
+\textbf{73.} D30复习目标正确率？ & $\geq90\%$。 \\
+\midrule
+\textbf{74.} 如果未知率突然升高先查哪？ & 先查通道与回执收敛。 \\
+\midrule
+\textbf{75.} 如果投诉突然升高先做哪三步？ & 核实投诉源、收紧策略、复盘通道。 \\
+\midrule
+\textbf{76.} 如果成功率低先查哪四类原因？ & 查号码质量、风控拦截、通道状态、频控限制。 \\
+\midrule
+\textbf{77.} 如果客户要固定尾号你先问什么？ & 问固定尾号/总长/三网一致三要素。 \\
+\midrule
+\textbf{78.} 如果客户说“没要求”你还要追问什么？ & 继续追问码号、回执、QPS、投诉与引流需求。 \\
+\midrule
+\textbf{79.} 如果大促QPS上万你先拉谁？ & 先拉运营和技术协同。 \\
+\midrule
+\textbf{80.} 如果客户要拉状态你要提醒什么？ & 提醒拉取频率、堆积风险和隔离策略。 \\
+\midrule
+\textbf{81.} 如果客户问“为什么140字不是2条”你怎么答？ & 67内1条，超67按67分片，所以140字是3条。 \\
+\bottomrule
+\end{longtable}
+
+\chapter{F卷：扩展消息类型专题（USSD/二进制短信/闪信）}
+\begin{longtable}{P{0.64\textwidth}P{0.3\textwidth}}
+\toprule
+\mystrong{题目（含选项）} & \mystrong{答案与解释} \\
+\midrule
+\textbf{1.} 下列关于 USSD 的描述，正确的是：\par \textbf{A.} 典型是“存储转发”\par \textbf{B.} 依赖移动互联网\par \textbf{C.} 属于实时会话型交互\par \textbf{D.} 必须安装App & \ansline{C}\par \expline{USSD是GSM会话型交互协议，强调实时菜单交互，不是短信存储转发。} \\
+\midrule
+\textbf{2.} USSD 最典型的交互入口是：\par \textbf{A.} 邮件链接\par \textbf{B.} 拨号输入\texttt{*...\#}\par \textbf{C.} 应用内H5\par \textbf{D.} 二维码扫码 & \ansline{B}\par \expline{用户在拨号盘输入特定代码触发USSD会话，这是其经典入口。} \\
+\midrule
+\textbf{3.} 下列哪项更符合二进制短信（Binary SMS）？\par \textbf{A.} 仅用于文本群发\par \textbf{B.} 负载是二进制数据\par \textbf{C.} 不走短信网络\par \textbf{D.} 不需要终端解析 & \ansline{B}\par \expline{二进制短信的核心是“短信通道承载二进制负载”，常见于控制和配置类场景。} \\
+\midrule
+\textbf{4.} 二进制短信的典型应用不包括：\par \textbf{A.} 设备参数下发\par \textbf{B.} M2M控制指令\par \textbf{C.} WAP Push\par \textbf{D.} 常规营销文案展示 & \ansline{D}\par \expline{二进制短信偏“控制/配置”用途，常规营销展示通常不选该形态。} \\
+\midrule
+\textbf{5.} 闪信在技术上属于：\par \textbf{A.} Class 0 SMS\par \textbf{B.} MMS\par \textbf{C.} RCS\par \textbf{D.} 邮件通知 & \ansline{A}\par \expline{Flash SMS 在GSM规范中对应 Class 0。} \\
+\midrule
+\textbf{6.} 闪信的典型特征是：\par \textbf{A.} 默认长期保存在收件箱\par \textbf{B.} 消息优先弹窗展示\par \textbf{C.} 只能在弱网接收\par \textbf{D.} 仅支持iOS & \ansline{B}\par \expline{闪信强调“强提醒”，通常优先弹出而非常规入箱。} \\
+\midrule
+\textbf{7.} 下列哪项是闪信在安全侧的主要风险？\par \textbf{A.} 无法显示\par \textbf{B.} 锁屏可见导致信息暴露\par \textbf{C.} 无法计费\par \textbf{D.} 无法送达 & \ansline{B}\par \expline{闪信可能在锁屏界面直接展示内容，存在旁观泄露风险。} \\
+\midrule
+\textbf{8.} 若业务目标是“功能机环境下实时菜单式查询”，优先建议：\par \textbf{A.} 富媒体短信\par \textbf{B.} 5G消息\par \textbf{C.} USSD\par \textbf{D.} 邮件推送 & \ansline{C}\par \expline{该目标与USSD的能力边界高度匹配。} \\
+\bottomrule
+\end{longtable}
+\appendix
+\chapter{修订说明与版本记录}
+\section{修订声明}
+\begin{riskbox}
+本文档已完成可学习化修订，并已执行出版级精修：统一术语、统一客户匿名策略、统一规则版本号。
+本版新增“左题右答”双栏结构（A--F卷全覆盖），用于提升做题与核对效率。
+\end{riskbox}
+
+\section{版本变更}
+\begin{longtable}{P{0.13\textwidth}P{0.16\textwidth}P{0.55\textwidth}}
+\toprule
+\mystrong{版本} & \mystrong{日期} & \mystrong{变更说明} \\
+\midrule
+V1.0 & 2026-02-08 & 初版：全知识点题库与答案解析 \\
+V2.0 & 2026-02-08 & 出版级精修：术语统一、匿名策略固化、规则版本基线化 \\
+V3.0 & 2026-02-08 & 版式升级：A--E卷改为左题右答双栏，去除后置答案重复章节 \\
+V3.1 & 2026-02-09 & 新增“扩展消息类型专题（USSD/二进制短信/闪信）”，补全题库覆盖面 \\
+\bottomrule
+\end{longtable}
+
+\section{出卷与阅卷复用建议}
+\begin{keybox}
+\begin{enumerate}
+  \item 出卷时先锁定规则版本号，避免跨版本混题。
+  \item 新增题目时优先复用“客户匿名+行业标签”模板。
+  \item 阅卷争议统一回到“出版级作答口径”章节判定。
+  \item 每季度更新一次规则基线并抽样重审答案。
+\end{enumerate}
+\end{keybox}
+
+\section{A．4 对外发布前检查清单}
+\begin{keybox}
+\begin{enumerate}
+  \item 术语是否全部符合“术语统一标准”。
+  \item 客户信息是否全部达到 Release-L2 匿名等级。
+  \item 规则口径是否全部标注版本号。
+  \item 时间窗、计费、回执、频控描述是否与当前规则一致。
+  \item 图表标题、单位、缩写（QPS、MO、MT）是否统一。
+  \item 是否移除内部群名、个人姓名、私有项目代号。
+  \item PDF 元信息与封面版本信息是否一致。
+\end{enumerate}
+\end{keybox}
+
+\end{document}

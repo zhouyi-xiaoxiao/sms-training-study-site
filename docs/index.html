@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>企业短信学习站</title>
+    <meta name="description" content="企业短信培训多端学习站：知识点、测验、文稿联动。" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div class="bg-layer bg-1"></div>
+    <div class="bg-layer bg-2"></div>
+
+    <header class="hero">
+      <div>
+        <p class="kicker">SMS Training Hub</p>
+        <h1>企业短信学习站</h1>
+        <p class="subtitle">适配手机与网页端 · 知识点与题库互跳 · 即时判题与错题复盘</p>
+      </div>
+      <div class="hero-actions">
+        <button class="ghost-btn" data-tab-trigger="knowledge">开始看知识点</button>
+        <button class="solid-btn" data-tab-trigger="quiz">直接做题</button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="主导航">
+      <button class="tab is-active" data-tab="dashboard">学习地图</button>
+      <button class="tab" data-tab="knowledge">知识点</button>
+      <button class="tab" data-tab="quiz">测验中心</button>
+      <button class="tab" data-tab="library">文稿中心</button>
+      <button class="tab" data-tab="progress">进度与错题</button>
+    </nav>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <section class="panel" id="metaPanel">
+          <h2>数据概览</h2>
+          <div class="stat-grid">
+            <div class="stat"><span id="statKnowledge">-</span><small>知识点</small></div>
+            <div class="stat"><span id="statQuestions">-</span><small>题目</small></div>
+            <div class="stat"><span id="statAnswered">-</span><small>已作答</small></div>
+            <div class="stat"><span id="statCorrectRate">-</span><small>正确率</small></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>快速筛选</h2>
+          <div id="quickTags" class="chip-wrap"></div>
+        </section>
+
+        <section class="panel">
+          <h2>快捷动作</h2>
+          <div class="stack-actions">
+            <button class="ghost-btn" id="btnStartWrong">只看错题</button>
+            <button class="ghost-btn" id="btnResetProgress">重置练习记录</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="content">
+        <section class="tab-pane is-active" data-pane="dashboard">
+          <div class="panel">
+            <h2>结构总览</h2>
+            <div id="dashboardSummary" class="summary-grid"></div>
+          </div>
+          <div class="panel">
+            <h2>推荐学习路径</h2>
+            <ol class="pathway">
+              <li>先读「知识点」的签名/计费/回执三块基础章节。</li>
+              <li>进入「测验中心」先做单选与判断，建立核心规则记忆。</li>
+              <li>再做场景题与计算题，训练交付与对账实战判断。</li>
+              <li>最后回到「文稿中心」按需查阅完整文稿与逐字稿细节。</li>
+            </ol>
+          </div>
+        </section>
+
+        <section class="tab-pane" data-pane="knowledge">
+          <div class="panel sticky-tools">
+            <div class="tool-row">
+              <input id="knowledgeSearch" type="search" placeholder="搜索知识点（如：计费、回执、USSD）" />
+              <button class="ghost-btn" id="knowledgeClear">清空</button>
+            </div>
+            <div id="knowledgeTags" class="chip-wrap"></div>
+          </div>
+          <div id="knowledgeList" class="knowledge-list"></div>
+        </section>
+
+        <section class="tab-pane" data-pane="quiz">
+          <div class="panel sticky-tools">
+            <div class="tool-row responsive">
+              <select id="quizSourceFilter"></select>
+              <select id="quizTypeFilter"></select>
+              <input id="quizSearch" type="search" placeholder="搜索题目关键词" />
+              <label class="check-inline"><input type="checkbox" id="quizWrongOnly" /> 仅错题</label>
+              <button class="ghost-btn" id="quizClearFilter">重置筛选</button>
+            </div>
+            <p class="hint">选择题与判断题：提交后即时显示“你的答案 + 正误 + 正确答案”；填空/简答：可输入后点击“显示参考答案”。</p>
+          </div>
+
+          <div id="quizPager" class="pager"></div>
+          <div id="quizList" class="quiz-list"></div>
+          <div id="quizPagerBottom" class="pager"></div>
+        </section>
+
+        <section class="tab-pane" data-pane="library">
+          <div class="panel">
+            <h2>文稿中心</h2>
+            <p class="hint">包含完整学习手册、全知识点、题库与逐字稿。移动端建议“新标签打开”阅读。</p>
+            <div id="docCards" class="doc-cards"></div>
+          </div>
+
+          <div class="panel">
+            <h2>在线预览</h2>
+            <div class="tool-row">
+              <select id="docPreviewSelect"></select>
+              <a id="docOpenNew" class="solid-btn as-link" href="#" target="_blank" rel="noopener">新标签打开</a>
+            </div>
+            <iframe id="docPreviewFrame" title="文稿预览"></iframe>
+          </div>
+        </section>
+
+        <section class="tab-pane" data-pane="progress">
+          <div class="panel">
+            <h2>练习进度</h2>
+            <div id="progressBoard" class="progress-board"></div>
+          </div>
+          <div class="panel">
+            <h2>错题列表</h2>
+            <div id="wrongList" class="wrong-list"></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>企业短信学习站 · 本地数据驱动 · 支持 GitHub Pages 发布</p>
+    </footer>
+
+    <script type="module" src="assets/app.js"></script>
+  </body>
+</html>

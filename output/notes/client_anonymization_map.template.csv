@@ -1,0 +1,7 @@
+case_id,industry_tag,public_label,internal_real_name,notes,status
+A,能源,案例A：区域能源集团,,保留缴费/欠费/工单场景,TODO
+B,电商,案例B：头部电商生态客户,,保留大促QPS与重保描述,TODO
+C,政务,案例C：国家级身份认证项目,,保留安全与审计能力要求,TODO
+D,互联网平台,案例D：头部互联网平台定制项目,,保留平台化交付能力,TODO
+E,医疗,案例E：三甲医院私有化项目,,保留私有化与长期运维特征,TODO
+F,快消,案例F：快消品牌短链追踪项目,,保留UV/PV追踪能力,TODO

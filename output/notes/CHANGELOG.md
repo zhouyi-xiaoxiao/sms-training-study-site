@@ -1,0 +1,73 @@
+# CHANGELOG
+
+## 2026-02-09
+- 新增多端学习网站（GitHub Pages 可发布）：
+  - 新增数据构建脚本：`tools/build_web_data.py`
+  - 生成站点数据：`docs/assets/data.json`（知识点48、题目209）
+  - 新增前端页面：`docs/index.html`
+  - 新增样式：`docs/assets/styles.css`
+  - 新增交互脚本：`docs/assets/app.js`
+  - 新增文稿在线访问目录：`docs/files/*.pdf`
+  - 新增 Pages 工作流：`.github/workflows/pages.yml`
+  - 新增 `.nojekyll`：`docs/.nojekyll`
+- 网站交互能力：
+  - 知识点检索/标签筛选
+  - 题库筛选（来源、题型、关键词、错题）
+  - 客观题即时判题（展示“你的答案/判定/正确答案/解释”）
+  - 主观题“显示参考答案”与草稿保存
+  - 知识点与题目互跳、错题回看、学习进度统计
+- 题库与交付命名升级（去“脑科学训练版”表述）：
+  - 交付文件统一为 `03-企业短信培训题库-学习测评版.pdf`
+  - 同步更新题库封面标题与 PDF 元信息（学习测评版）
+  - 同步更新 `scripts/build_all.sh` 与 `README.md`
+- 题库答案对齐与质量修复：
+  - A卷改为逐题左题右答（答案高亮 + 解释）
+  - 修正单选题错位答案（重点修复第42、44、45、49、50、52、54、56题）
+- 计费规则口径更新（按最新要求）：
+  - 由“70字阈值”统一改为“67字阈值”
+  - 统一为：`<=67字计1条；>67字按67字分片`
+  - 同步文件：
+    - `src/original_complete.tex`
+    - `src/knowledge_points_full.tex`
+    - `src/practice_with_brain_science.tex`
+- 新增外部资料整合：
+  - 新增源文件：根目录 `消息类型介绍.docx`
+  - 抽取并整合进学习版文档：
+    - 新增 USSD 消息
+    - 新增二进制短信（Binary SMS）
+    - 细化闪信（Flash SMS/Class 0）
+  - 题库新增 `F卷：扩展消息类型专题（USSD/二进制短信/闪信）`
+- 文档版本号更新：
+  - `original_complete.tex` -> V4.1
+  - `knowledge_points_full.tex` -> V2.1
+  - `practice_with_brain_science.tex` -> V3.1
+- 构建与排版核验：
+  - 四份文档重新编译通过
+  - 复核 `Overfull/Underfull`：均为 0
+
+## 2026-02-08
+- 初始化文档工程结构（src/style/scripts/pdf/notes）
+- 新增统一样式：`style/sms_training_style.sty`
+- 新增三份主文档源文件并完成首版内容
+- 新增编译脚本：`build_all.sh`、`build_one.sh`
+- 新增复用说明：`README.md`、`notes/TASK_WORKFLOW.md`
+- 新增逐字稿：`src/verbatim_transcript.tex` + `notes/verbatim_transcript_raw.txt`
+- 全文档切换为 `openany`，并收紧排版减少留白
+- `build_all.sh` 改为只保留最终命名交付 PDF（消除重复文件）
+- 三份学习版文档升级为 V2.0 出版级精修：
+  - 统一术语标准（子端口/SubID、携号转网、会员营销短信等）
+  - 统一客户匿名策略（Release-L2，案例编号化）
+  - 统一规则版本号体系（SMS-CN/INTL/OPS v2026.02）
+  - 新增版本变更记录与发布前检查清单
+- 新增可复用文件：
+  - `notes/PUBLICATION_EDITORIAL_BASELINE.md`
+  - `notes/client_anonymization_map.template.csv`
+  - `notes/RELEASE_CHECKLIST.md`
+- 按用户最新规范更新 `A．4 对外发布前检查清单`（7项）并同步至：
+  - `src/original_complete.tex`
+  - `src/knowledge_points_full.tex`
+  - `src/practice_with_brain_science.tex`
+  - `notes/PUBLICATION_EDITORIAL_BASELINE.md`
+  - `notes/RELEASE_CHECKLIST.md`
+- 修复 PDF 元信息与封面版本一致性：
+  - 为四份 tex 文件补充文档级 `\\hypersetup`（pdftitle/pdfsubject）

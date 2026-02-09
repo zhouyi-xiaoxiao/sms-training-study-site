@@ -1,0 +1,496 @@
+\documentclass[UTF8,12pt,openany]{ctexbook}
+\usepackage{../style/sms_training_style}
+
+\begin{document}
+\hypersetup{
+  pdftitle={企业短信培训全知识点总表 V2.0},
+  pdfauthor={整理：Codex},
+  pdfsubject={规则基线：SMS-CN-RULE-v2026.02 / SMS-INTL-RULE-v2026.02 / SMS-OPS-RULE-v2026.02}
+}
+
+\begin{titlepage}
+  \centering
+  {\fontsize{30}{36}\selectfont\bfseries\color{themeblue}企业短信培训全知识点总表}\par
+  \vspace{1.2em}
+  {\Large 覆盖课程原文全部关键知识点}\par
+  \vspace{1.6em}
+  \begin{keybox}
+  \mystrong{适用对象}\par
+  销售、运营、交付、技术支持、项目管理。\par
+  \vspace{0.3em}
+  \mystrong{使用方法}\par
+  先读第1章“全景地图”，再按岗位阅读对应章节，最后用第13章做上线前核对。
+  \end{keybox}
+  \vfill
+  \coverline{版本：V2.0（出版级精修版）}
+  \coverline{规则基线：SMS-CN-RULE-v2026.02 / SMS-INTL-RULE-v2026.02 / SMS-OPS-RULE-v2026.02}
+  \coverline{匿名等级：Release-L2}
+  \coverline{整理时间：2026年2月8日}
+\end{titlepage}
+
+\tableofcontents
+\clearpage
+
+\chapter{知识全景地图}
+
+\section{一张图看懂企业短信}
+\begin{enumerate}
+  \item 准入：SP证、码号证、运营商落地。
+  \item 发送对象：会员/用户，且遵循隐私同意与营销合规。
+  \item 发送载体：主码号+子端口+签名+正文+引流信息。
+  \item 发送链路：客户系统$\rightarrow$短信平台$\rightarrow$运营商/供应商$\rightarrow$终端。
+  \item 状态闭环：提交回执、状态回执、上行回执、对账回执。
+  \item 运营核心：成功率、时效、投诉、成本、稳定性。
+\end{enumerate}
+
+\section{课程核心结论}
+\begin{keybox}
+\begin{itemize}
+  \item 企业短信不是“能发就行”，是“合规+触达+可运营”的系统工程。
+  \item 大客户成功靠“规则前置+接入治理+持续运营”，而不是一次性交付。
+  \item 客户问题80\%可归因于四类：号码质量、内容合规、通道策略、回执口径。
+\end{itemize}
+\end{keybox}
+
+\chapter{出版级口径控制（本版新增）}
+
+\section{术语统一清单}
+\begin{longtable}{P{0.2\textwidth}P{0.24\textwidth}P{0.48\textwidth}}
+\toprule
+\mystrong{术语} & \mystrong{统一写法} & \mystrong{统一规则} \\
+\midrule
+子端口 & 子端口（SubID） & 禁用“扩展码/后缀码”作为主写法，仅可在注释中出现 \\
+状态回执 & 状态回执（成功/失败） & “未知”仅表示暂未返回，不能写为最终状态 \\
+携号转网 & 携号转网 & 禁用“企业号转码”作为正文主术语 \\
+会员营销短信 & 会员营销短信 & 禁用“会销”作为发布版主术语 \\
+引流信息 & 引流信息（链接/号码） & 必须明确“链接与号码均需报备” \\
+\bottomrule
+\end{longtable}
+
+\section{客户匿名策略}
+\begin{itemize}
+  \item 发布版统一使用“案例编号+行业标签”命名，不使用客户实名。
+  \item 如需保留背景强度，保留“头部/区域/国家级”等级描述，不保留可逆识别信息。
+  \item 内部映射关系仅保留在受控文件，不进入公开学习资料。
+\end{itemize}
+
+\section{规则版本号}
+\begin{longtable}{P{0.3\textwidth}P{0.24\textwidth}P{0.32\textwidth}}
+\toprule
+\mystrong{规则包} & \mystrong{版本} & \mystrong{适用范围} \\
+\midrule
+中国短信规则基线 & SMS-CN-RULE-v2026.02 & 签名、计费、回执、营销限制、投诉 \\
+国际短信规则基线 & SMS-INTL-RULE-v2026.02 & Sender ID、报备、回填率、国家策略 \\
+运营交付规则基线 & SMS-OPS-RULE-v2026.02 & 接入、压测、监控、重保、对账 \\
+\bottomrule
+\end{longtable}
+
+\section{规则适用声明}
+本知识点总表中的规则口径，统一适用版本基线：
+SMS-CN-RULE-v2026.02、SMS-INTL-RULE-v2026.02、SMS-OPS-RULE-v2026.02。
+
+\chapter{监管与准入知识点}
+
+\section{资质体系}
+\begin{longtable}{P{0.2\textwidth}P{0.74\textwidth}}
+\toprule
+\mystrong{资质} & \mystrong{知识点} \\
+\midrule
+增值电信业务经营许可证（SP证） & 企业开展短信等增值电信业务前提，含有效期与续期要求 \\
+码号证 & 码号资源使用资格，不等于可直接发送 \\
+基础电信业务经营许可证 & 主要由运营商及少数基础电信主体持有，部分招标会作为门槛 \\
+\bottomrule
+\end{longtable}
+
+\section{码号落地}
+\begin{itemize}
+  \item 码号证获取后需在运营商落地，形成可用通道。
+  \item 三网分离原则：移动/联通/电信分别落地、分别发送。
+  \item 三网合一：同一发件标识在三网一致可见，保障更高，成本更高。
+\end{itemize}
+
+\section{监管趋势}
+\begin{itemize}
+  \item 从“先发后管”转向“先报备后发送”。
+  \item 签名报备、引流信息报备成为前置条件。
+  \item 营销短信退订文案统一规范化，减少模糊口径。
+\end{itemize}
+
+\chapter{码号、子端口、签名知识点}
+
+\section{码号结构}
+\begin{itemize}
+  \item 常见为106开头。
+  \item 前8位为基础码号段，后缀为可扩展子端口（SubID）。
+  \item 总长度上限20位（课程口径）。
+\end{itemize}
+
+\section{大客户常见码号需求}
+\begin{enumerate}
+  \item 固定结尾（例如客服短号映射）。
+  \item 总长度上限（如不超过11位/12位）。
+  \item 三网一致可见（品牌统一展示）。
+\end{enumerate}
+
+\section{签名规则}
+\begin{itemize}
+  \item 国内短信签名格式固定：\texttt{【签名】}。
+  \item 可用签名：企业全称、合规简称、已核准商标、部分可核验备案主体（按运营商规则）。
+  \item 简称需唯一且不可跳字。
+  \item 同一短信里除正式签名外，不应再出现方头括号，避免多签名判定。
+\end{itemize}
+
+\section{签名与子端口映射}
+\begin{keybox}
+\mystrong{必须牢记}\par
+\begin{itemize}
+  \item 一个子端口只能对应一个签名。
+  \item 一个签名可以对应多个子端口。
+  \item 子端口报备后，引流信息与签名关系也会被绑定管理。
+\end{itemize}
+\end{keybox}
+
+\chapter{短信内容、分类、场景知识点}
+
+\section{三大短信类型}
+\begin{longtable}{P{0.14\textwidth}P{0.24\textwidth}P{0.22\textwidth}P{0.22\textwidth}}
+\toprule
+\mystrong{类型} & \mystrong{典型内容} & \mystrong{核心指标} & \mystrong{常见风险} \\
+\midrule
+验证码 & 登录、注册、找回密码 & 时效（秒级） & 轰炸、重发频控 \\
+通知 & 动账、物流、系统提醒、订单状态 & 稳定触达 & 内容合规、误触达 \\
+会员营销 & 活动促销、复购提醒、会员召回 & 触达+转化 & 投诉、退订、隐私合规 \\
+\bottomrule
+\end{longtable}
+
+\section{营销短信底线}
+\begin{itemize}
+  \item 只能做会员营销，不做陌生人营销。
+  \item 必须有退订口径：\texttt{拒收请回复R}。
+  \item 发送时段受限，通常早8晚10，高危行业更严格。
+\end{itemize}
+
+\section{行业场景地图}
+\begin{itemize}
+  \item 电商：验证码+订单通知+大促营销。
+  \item 物流：订单与配送通知为主。
+  \item 银行保险：动账通知、验证、活动通知。
+  \item 能源电力：缴费提醒、欠费通知、工单通知。
+  \item 航旅出行：订单、延误、值机、升舱活动。
+  \item 教育：上课提醒、课程通知、活动营销。
+  \item 政务：通知与身份验证为主，安全合规要求高。
+\end{itemize}
+
+\chapter{计费与结算知识点}
+
+\section{计费字符规则}
+\begin{itemize}
+  \item $\leq 67$字：1条。
+  \item $>67$字：按67字分片计费。
+  \item 140字$\Rightarrow$3条（非2条）。
+  \item 签名、括号、标点、空格、链接都计费。
+\end{itemize}
+
+\section{常见计费模式}
+\begin{enumerate}
+  \item 成功计费：仅成功计费。
+  \item 失败不计费：成功+未知计费（按平台与合同定义）。
+  \item 提交计费：提交即计费（通常对平台收益更高）。
+\end{enumerate}
+
+\section{失败返还}
+\begin{itemize}
+  \item 常见于预付费客户。
+  \item 提交时先预扣，72小时后按失败状态返还额度。
+  \item 未知状态窗口会影响短期账面波动。
+\end{itemize}
+
+\section{长短信对账风险点}
+\begin{riskbox}
+长短信分片、补发、客户“只收一条状态”需求叠加时，最容易出现双方账单口径差异。
+必须在合同或对账规则中提前约定：统计口径、容差范围、争议处理方式。
+\end{riskbox}
+
+\chapter{下发链路与回执知识点}
+
+\section{链路节点}
+客户触发$\rightarrow$客户平台$\rightarrow$接口提交$\rightarrow$短信平台处理$\rightarrow$运营商/供应商$\rightarrow$终端$\rightarrow$回执回传。
+
+\section{回执三件套}
+\begin{itemize}
+  \item 提交回执：平台已接收请求。
+  \item 状态回执：成功或失败（最终状态）。
+  \item 上行回执：用户回复内容（R、数字口令、普通文本）。
+\end{itemize}
+
+\section{未知状态认知}
+\begin{itemize}
+  \item 未知是“暂未返回状态”，不是最终状态分类。
+  \item 通常72小时内继续收敛为成功或失败。
+  \item 正常未知率不应过高，异常增高需排查链路故障或号码质量。
+\end{itemize}
+
+\section{状态回传策略}
+\begin{itemize}
+  \item 可实时回推，也可按客户能力限流回推。
+  \item 少数重点客户可开放主动拉取。
+  \item 主动拉取要考虑资源占用、安全、隔离策略。
+\end{itemize}
+
+\chapter{风控、审核、投诉知识点}
+
+\section{关键词机制}
+\begin{itemize}
+  \item 平台关键词库用于拦截违法违规内容。
+  \item 关键词分组、分级，可按账号策略差异化配置。
+  \item 语义可解释场景可做白名单化放通（合规前提下）。
+\end{itemize}
+
+\section{黑白名单机制}
+\begin{itemize}
+  \item 黑名单：强拦截，保护通道健康与投诉指标。
+  \item 白名单：测试号/告警号/重保号放通，并可配优质专属资源。
+  \item 黑名单解除需看级别、内容类型、证据链，不可“一刀切可解”。
+\end{itemize}
+
+\section{审核策略}
+\begin{itemize}
+  \item 大客户、低风险业务常免审或弱审。
+  \item 小客户、高风险营销常需人工审核。
+  \item 验证码通常不宜走重人工审核，避免时效损失。
+\end{itemize}
+
+\section{投诉治理}
+\begin{itemize}
+  \item 常见投诉入口：12321、运营商客服、通管局、12315等。
+  \item 通道指标控制：百投比+绝对值双约束。
+  \item 申诉材料：会员证明、授权链路、隐私协议同意证据等。
+\end{itemize}
+
+\chapter{接口与平台能力知识点}
+
+\section{接口协议}
+\begin{longtable}{p{0.2\textwidth}p{0.3\textwidth}p{0.42\textwidth}}
+\toprule
+\mystrong{协议} & \mystrong{适用场景} & \mystrong{关键点} \\
+\midrule
+HTTP/HTTPS & 绝大多数企业客户 & 需按接口文档开发；HTTPS适用于更高安全要求 \\
+CMPP & 国内通信行业标准接口 & 行业内客户接入快，兼容性高 \\
+SMPP & 国际短信常见标准 & 出海场景、国际供应链对接常用 \\
+\bottomrule
+\end{longtable}
+
+\section{平台功能能力点}
+\begin{itemize}
+  \item 账号管理：开通、鉴权、权限控制。
+  \item 资源池调度：多通道分流、权重策略、失败补发。
+  \item 监控告警：成功率、时延、余额、通道健康、投诉指标。
+  \item 统计报表：成功/失败/未知、点击、解析、UV/PV（按产品能力）。
+  \item 安全与隔离：客户级隔离、接口限流、拉取保护。
+\end{itemize}
+
+\chapter{产品矩阵知识点（文本/富媒体/阅信/5G/语音/闪信/USSD/二进制短信）}
+
+\section{文本短信}
+优势：覆盖广、链路成熟、成本低。\par
+限制：展示单一、交互弱。
+
+\section{富媒体短信}
+优势：图文/视频展示强、营销吸引力高。\par
+限制：成本高于文本，模板审核与素材准备成本高。
+
+\section{阅信（智能解析）}
+优势：可卡片化展示、可按钮跳转、可做点击追踪。\par
+限制：终端支持不一致，iOS链路更长，解析与短信双重成本。
+
+\section{5G消息}
+优势：交互丰富、可Chatbot。\par
+限制：终端覆盖与可寻址规模仍是现实约束。
+
+\section{语音短信/语音验证码}
+优势：作为文本验证码补充，提高可达性。\par
+限制：成本与用户接听行为影响较大。
+
+\section{闪信}
+优势：强提醒（来电前提示等）。\par
+限制：机型稳定性与展示时序不完全一致。
+
+\section{USSD消息（会话型）}
+优势：实时双向交互、弱网可用、终端覆盖广、无需App。\par
+限制：文本菜单体验有限、会话超时后需重进、单次承载有限。
+
+\section{二进制短信（Binary SMS）}
+优势：可通过短信通道传输控制类小数据，适配M2M与设备管理。\par
+限制：实现复杂、单条载荷小、终端兼容性需要专项联调。
+
+\chapter{国际短信知识点}
+
+\section{基础规则}
+\begin{itemize}
+  \item 国际短信以Sender ID识别品牌。
+  \item 不同国家报备规则、模板规则、退订规则差异大。
+  \item 部分国家报备存在注册费和月租费。
+\end{itemize}
+
+\section{关键指标}
+\begin{itemize}
+  \item 成功率：通知类常看。
+  \item 回填率：验证码核心指标。
+  \item 到达时延：验证码时效体验关键。
+\end{itemize}
+
+\section{WhatsApp补充通道}
+\begin{itemize}
+  \item 在主流国家可作为高触达互动通道。
+  \item 需考虑模板审核、会话窗口、国家使用习惯。
+\end{itemize}
+
+\chapter{客户接入与商务知识点}
+
+\section{接入全流程}
+需求确认$\rightarrow$投标/商务$\rightarrow$账号开通$\rightarrow$接口联调$\rightarrow$报备$\rightarrow$测试$\rightarrow$上线$\rightarrow$运营$\rightarrow$对账续约。
+
+\section{测试策略}
+\begin{itemize}
+  \item 点测：验证链路可用。
+  \item 压测：验证平台和通道承载。
+  \item 批测：真实业务小流量观察后扩量。
+\end{itemize}
+
+\section{压测必问清单}
+\begin{enumerate}
+  \item 目标QPS是多少。
+  \item 只测平台接入还是测全链路。
+  \item 压测时间窗、持续时长。
+  \item 是否回推状态，回推速率要求。
+  \item 是否会与线上高峰冲突。
+\end{enumerate}
+
+\section{客户分层策略}
+\begin{itemize}
+  \item 大中直客：高频沟通、重保策略、定制能力、报告化服务。
+  \item 小微客户：自服务优先、预付费优先、标准化运营。
+  \item 渠道客户：资源效率优先、质量与成本平衡。
+\end{itemize}
+
+\chapter{销售与运营协同知识点}
+
+\section{销售必采集信息}
+\begin{itemize}
+  \item 行业、体量、短信类型占比。
+  \item 当前供应商、痛点、替换诉求。
+  \item 码号要求（固定尾号、总长度、三网合一）。
+  \item 回执方式（回推/拉取/限流）。
+  \item 历史投诉与百投比大致水平。
+  \item 是否存在定制化功能需求。
+\end{itemize}
+
+\section{运营必建立机制}
+\begin{itemize}
+  \item 通道池策略与失败补发策略。
+  \item 账号级风控参数（频控、关键词、黑白名单、地区策略）。
+  \item 异常监控与告警分级。
+  \item 问题闭环（定位、反馈、复盘、规则更新）。
+\end{itemize}
+
+\section{影响利润四因子}
+\begin{enumerate}
+  \item 单价。
+  \item 计费口径。
+  \item 通道要求复杂度。
+  \item 最终成功率（与有效号码质量强相关）。
+\end{enumerate}
+
+\chapter{上线前与日常运营核对表}
+
+\section{上线前核对（Checklist）}
+\begin{keybox}
+\begin{enumerate}
+  \item 资质/合同/结算方式确认。
+  \item 签名报备、引流报备状态确认。
+  \item 通道资源池与备份策略确认。
+  \item 回执策略与口径确认。
+  \item 风控参数确认（频次、时间窗、黑白名单、关键词）。
+  \item 压测或批测报告确认。
+  \item 节点联系人与应急机制确认。
+\end{enumerate}
+\end{keybox}
+
+\section{日常监控核心指标}
+\begin{itemize}
+  \item 成功率、失败率、未知率。
+  \item 时延（提交到回执、提交到到达）。
+  \item 投诉量、百投比。
+  \item 账户余额、通道余额。
+  \item 大客户回执堆积与拉取异常。
+\end{itemize}
+
+\section{异常排障优先级}
+\begin{enumerate}
+  \item 是否全量失败（接口鉴权/网络/通道故障）。
+  \item 是否集中失败（某运营商/某省份/某模板）。
+  \item 是否规则拦截（关键词、黑名单、频控、时间窗）。
+  \item 是否号码质量问题（空号、停机、无信号、携转）。
+  \item 是否回执口径问题（未知窗口、长短信分片、映射偏差）。
+\end{enumerate}
+
+\chapter{必背速记页（考前10分钟）}
+
+\begin{tipbox}
+\mystrong{速记1：状态}\par
+最终状态只有成功和失败；未知是暂未返回状态，72小时内会收敛。
+\end{tipbox}
+
+\begin{tipbox}
+\mystrong{速记2：计费}\par
+67字一条；超67按67拆分；140字=3条；签名和符号都计费。
+\end{tipbox}
+
+\begin{tipbox}
+\mystrong{速记3：映射}\par
+子端口\,$\leftrightarrow$\,签名是“一对一（端口到签名）”；签名可对应多个子端口。
+\end{tipbox}
+
+\begin{tipbox}
+\mystrong{速记4：营销}\par
+必须会员前提；必须退订口径；必须遵守时间窗与频次限制。
+\end{tipbox}
+
+\begin{tipbox}
+\mystrong{速记5：接入}\par
+先问清需求再开账号；先做小流量验证再扩量；压测必须明确QPS和时间窗。
+\end{tipbox}
+
+\appendix
+\chapter{修订说明与变更记录}
+\section{修订声明}
+\begin{riskbox}
+本文档已完成可学习化修订，并已执行出版级精修：统一术语、统一客户匿名策略、统一规则版本号。
+保留少量课堂表达，仅用于维持学习语境，不影响规则准确性。
+\end{riskbox}
+
+\section{版本变更记录}
+\begin{longtable}{P{0.13\textwidth}P{0.16\textwidth}P{0.55\textwidth}}
+\toprule
+\mystrong{版本} & \mystrong{日期} & \mystrong{变更说明} \\
+\midrule
+V1.0 & 2026-02-08 & 初版：课程知识点结构化整理 \\
+V2.0 & 2026-02-08 & 出版级精修：术语统一、匿名策略、规则版本化、附录补全 \\
+V2.1 & 2026-02-09 & 整合“消息类型介绍”材料：新增USSD与二进制短信知识点并细化闪信 \\
+\bottomrule
+\end{longtable}
+
+\section{A．4 对外发布前检查清单}
+\begin{keybox}
+\begin{enumerate}
+  \item 术语是否全部符合“术语统一标准”。
+  \item 客户信息是否全部达到 Release-L2 匿名等级。
+  \item 规则口径是否全部标注版本号。
+  \item 时间窗、计费、回执、频控描述是否与当前规则一致。
+  \item 图表标题、单位、缩写（QPS、MO、MT）是否统一。
+  \item 是否移除内部群名、个人姓名、私有项目代号。
+  \item PDF 元信息与封面版本信息是否一致。
+\end{enumerate}
+\end{keybox}
+
+\end{document}
