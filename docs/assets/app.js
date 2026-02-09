@@ -12,7 +12,7 @@ const TYPE_LABEL = {
 const state = {
   data: null,
   ui: {
-    tab: "dashboard",
+    tab: "knowledge",
     knowledgeSearch: "",
     knowledgeTag: "全部",
     quizSource: "全部来源",
@@ -252,32 +252,6 @@ function renderQuickTags() {
   holder.innerHTML = allTags
     .map((tag) => `<button class=\"chip\" data-quick-tag=\"${escapeHtml(tag)}\">${escapeHtml(tag)}</button>`)
     .join("");
-}
-
-function renderDashboard() {
-  const box = $("#dashboardSummary");
-  const bySource = {};
-  const byType = {};
-
-  state.data.questions.forEach((q) => {
-    bySource[q.source] = (bySource[q.source] || 0) + 1;
-    byType[q.qtype] = (byType[q.qtype] || 0) + 1;
-  });
-
-  const sourceCards = Object.entries(bySource)
-    .map(([name, count]) => `<div class=\"summary-card\"><h3>${escapeHtml(name)}</h3><p>题目 ${count} 道</p></div>`)
-    .join("");
-
-  const typeCards = Object.entries(byType)
-    .map(([name, count]) => `<div class=\"summary-card\"><h3>${TYPE_LABEL[name] || name}</h3><p>题目 ${count} 道</p></div>`)
-    .join("");
-
-  box.innerHTML = [
-    `<div class=\"summary-card\"><h3>知识点库</h3><p>${state.data.meta.knowledge_count} 条结构化知识。</p></div>`,
-    `<div class=\"summary-card\"><h3>题目总量</h3><p>${state.data.meta.question_count} 道，含客观题与主观题。</p></div>`,
-    sourceCards,
-    typeCards,
-  ].join("");
 }
 
 function renderKnowledgeTags() {
@@ -522,7 +496,12 @@ function getDocPreviewPath(doc) {
 function renderDocLibrary() {
   const docs = state.data.documents || [];
   const cards = $("#docCards");
-  const select = $("#docPreviewSelect");
+  if (!cards) return;
+
+  if (!docs.length) {
+    cards.innerHTML = `<p class=\"hint\">暂无在线文稿。</p>`;
+    return;
+  }
 
   cards.innerHTML = docs
     .map(
@@ -533,34 +512,13 @@ function renderDocLibrary() {
         <h3>${escapeHtml(doc.title)}</h3>
         <p>${escapeHtml(doc.desc || "")}</p>
         <div class=\"tool-row\">
-          <button class=\"ghost-btn\" data-action=\"preview-doc\" data-doc=\"${escapeHtml(doc.id)}\">站内预览</button>
           <a class=\"solid-btn as-link\" href=\"${escapeHtml(previewPath)}\" target=\"_blank\" rel=\"noopener\">在线阅读</a>
+          <a class=\"ghost-btn as-link\" href=\"${escapeHtml(previewPath)}\" target=\"_top\" rel=\"noopener\">当前页打开</a>
         </div>
       </article>`;
       }
     )
     .join("");
-
-  select.innerHTML = docs
-    .map((doc) => `<option value=\"${escapeHtml(doc.id)}\">${escapeHtml(doc.title)}</option>`)
-    .join("");
-
-  if (docs.length) {
-    const current = select.value || docs[0].id;
-    select.value = current;
-    updateDocPreview(current);
-  }
-}
-
-function updateDocPreview(docId) {
-  const docs = state.data.documents || [];
-  const target = docs.find((doc) => doc.id === docId) || docs[0];
-  if (!target) return;
-  const previewPath = getDocPreviewPath(target);
-
-  $("#docPreviewFrame").src = previewPath;
-  $("#docOpenNew").href = previewPath;
-  $("#docPreviewSelect").value = target.id;
 }
 
 function renderProgress() {
@@ -634,7 +592,6 @@ function renderProgress() {
 function renderAll() {
   renderMetaStats();
   renderQuickTags();
-  renderDashboard();
   renderKnowledgeTags();
   renderKnowledgeList();
   renderQuizFilterOptions();
@@ -892,18 +849,6 @@ function bindQuizActionEvents() {
   });
 }
 
-function bindLibraryEvents() {
-  $("#docCards").addEventListener("click", (e) => {
-    const btn = e.target.closest("[data-action='preview-doc']");
-    if (!btn) return;
-    updateDocPreview(btn.dataset.doc);
-  });
-
-  $("#docPreviewSelect").addEventListener("change", (e) => {
-    updateDocPreview(e.target.value);
-  });
-}
-
 function bindProgressEvents() {
   $("#wrongList").addEventListener("click", (e) => {
     const trigger = e.target.closest("[data-action]");
@@ -946,7 +891,6 @@ async function boot() {
   bindKnowledgeEvents();
   bindQuizFilterEvents();
   bindQuizActionEvents();
-  bindLibraryEvents();
   bindProgressEvents();
 
   $("#knowledgeSearch").value = state.ui.knowledgeSearch;

@@ -27,12 +27,6 @@ DOC_SPECS = [
         output_name="doc-1.html",
     ),
     DocSpec(
-        doc_id="doc-2",
-        title="全知识点（结构化）",
-        source_name="knowledge_points_full.tex",
-        output_name="doc-2.html",
-    ),
-    DocSpec(
         doc_id="doc-3",
         title="题库（学习测评版）",
         source_name="practice_with_brain_science.tex",

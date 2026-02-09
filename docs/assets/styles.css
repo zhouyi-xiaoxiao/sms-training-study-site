@@ -179,39 +179,6 @@ a { color: var(--brand-2); }
   animation: pane-fade 0.2s ease;
 }
 
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 10px;
-}
-
-.summary-card {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: #fbfefe;
-  padding: 12px;
-}
-
-.summary-card h3 {
-  margin: 0 0 8px;
-  font-size: 16px;
-}
-
-.summary-card p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.pathway {
-  margin: 0;
-  padding-left: 18px;
-  display: grid;
-  gap: 8px;
-}
-
-.pathway li { line-height: 1.65; }
-
 .stat-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -512,17 +479,6 @@ textarea:focus-visible {
 .doc-card h3 { margin: 0 0 8px; font-size: 15px; }
 .doc-card p { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
 
-iframe {
-  display: block;
-  margin-top: 10px;
-  width: 100%;
-  height: 72vh;
-  min-height: 580px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: #fff;
-}
-
 .progress-board {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -587,10 +543,6 @@ iframe {
     background: transparent;
     border-bottom: 0;
   }
-  iframe {
-    height: 62vh;
-    min-height: 420px;
-  }
 }
 
 @media (max-width: 640px) {
@@ -603,10 +555,6 @@ iframe {
   .panel h2 { font-size: 16px; }
   .answer-grid { grid-template-columns: 72px 1fr; }
   .pager { justify-content: flex-start; }
-  iframe {
-    height: 64vh;
-    min-height: 360px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -642,8 +590,5 @@ iframe {
   }
   .tab-pane {
     display: block;
-  }
-  iframe {
-    display: none;
   }
 }

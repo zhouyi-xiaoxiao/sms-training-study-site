@@ -28,8 +28,7 @@
     </header>
 
     <nav class="tabs" aria-label="主导航">
-      <button class="tab is-active" data-tab="dashboard">学习地图</button>
-      <button class="tab" data-tab="knowledge">知识点</button>
+      <button class="tab is-active" data-tab="knowledge">知识点</button>
       <button class="tab" data-tab="quiz">测验中心</button>
       <button class="tab" data-tab="library">文稿中心</button>
       <button class="tab" data-tab="progress">进度与错题</button>
@@ -62,23 +61,7 @@
       </aside>
 
       <section class="content">
-        <section class="tab-pane is-active" data-pane="dashboard">
-          <div class="panel">
-            <h2>结构总览</h2>
-            <div id="dashboardSummary" class="summary-grid"></div>
-          </div>
-          <div class="panel">
-            <h2>推荐学习路径</h2>
-            <ol class="pathway">
-              <li>先读「知识点」的签名/计费/回执三块基础章节。</li>
-              <li>进入「测验中心」先做单选与判断（点击选项即自动判题）。</li>
-              <li>再做场景题与计算题，训练交付与对账实战判断。</li>
-              <li>最后回到「文稿中心」按需查阅完整文稿和题库细节。</li>
-            </ol>
-          </div>
-        </section>
-
-        <section class="tab-pane" data-pane="knowledge">
+        <section class="tab-pane is-active" data-pane="knowledge">
           <div class="panel sticky-tools">
             <div class="tool-row">
               <input id="knowledgeSearch" type="search" placeholder="搜索知识点（如：计费、回执、USSD）" />
@@ -109,17 +92,8 @@
         <section class="tab-pane" data-pane="library">
           <div class="panel">
             <h2>文稿中心</h2>
-            <p class="hint">包含完整学习手册、全知识点、题库的在线文稿版，支持站内阅读与新标签阅读。</p>
+            <p class="hint">仅保留系统学习手册与题库文稿；结构化知识点请在「知识点」页学习，避免内容重复。</p>
             <div id="docCards" class="doc-cards"></div>
-          </div>
-
-          <div class="panel">
-            <h2>在线文稿预览</h2>
-            <div class="tool-row">
-              <select id="docPreviewSelect"></select>
-              <a id="docOpenNew" class="solid-btn as-link" href="#" target="_blank" rel="noopener">在线阅读</a>
-            </div>
-            <iframe id="docPreviewFrame" title="在线文稿预览"></iframe>
           </div>
         </section>
 
