@@ -7,11 +7,103 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../assets/reader.css" />
+    <link rel="stylesheet" href="../assets/reader.css?v=20260209-2338" />
   </head>
   <body>
     <a class="skip-link" href="#docMain">跳到正文</a>
     <a class="back-float" href="../index.html" target="_top" rel="noopener">返回学习站</a>
+    <button class="toc-float-btn" id="tocFloatBtn" type="button" aria-controls="tocDrawer" aria-expanded="false">目录</button>
+<section class="toc-drawer" id="tocDrawer" hidden>
+  <button class="toc-drawer-backdrop" type="button" data-action="close-toc" aria-label="关闭目录"></button>
+  <aside class="toc-drawer-panel" role="dialog" aria-modal="true" aria-label="文档目录">
+    <div class="toc-drawer-head">
+      <h2>目录</h2>
+      <button class="toc-close" type="button" data-action="close-toc">关闭</button>
+    </div>
+    <nav class="doc-toc-mobile" aria-label="移动目录">
+      <ol>
+<li class="lv-1"><a href="#课程总览与学习路径">课程总览与学习路径</a></li>
+<li class="lv-2"><a href="#培训时间与组织方式">培训时间与组织方式</a></li>
+<li class="lv-2"><a href="#四课主线">四课主线</a></li>
+<li class="lv-2"><a href="#零基础先读-5分钟入门">零基础先读（5分钟入门）</a></li>
+<li class="lv-2"><a href="#出版级口径控制">出版级口径控制</a></li>
+<li class="lv-3"><a href="#术语统一标准">术语统一标准</a></li>
+<li class="lv-3"><a href="#匿名策略与规则版本">匿名策略与规则版本</a></li>
+<li class="lv-1"><a href="#企业短信的定义-价值与边界">企业短信的定义、价值与边界</a></li>
+<li class="lv-2"><a href="#定义与业务本质">定义与业务本质</a></li>
+<li class="lv-2"><a href="#为什么企业短信仍是基础设施">为什么企业短信仍是基础设施</a></li>
+<li class="lv-2"><a href="#合规边界">合规边界</a></li>
+<li class="lv-1"><a href="#一条企业短信的完整构成">一条企业短信的完整构成</a></li>
+<li class="lv-2"><a href="#主码号与子端口">主码号与子端口</a></li>
+<li class="lv-2"><a href="#签名机制">签名机制</a></li>
+<li class="lv-2"><a href="#签名与子端口映射规则">签名与子端口映射规则</a></li>
+<li class="lv-2"><a href="#正文与引流信息">正文与引流信息</a></li>
+<li class="lv-1"><a href="#短信类型-业务场景与时效特征">短信类型、业务场景与时效特征</a></li>
+<li class="lv-2"><a href="#验证码短信">验证码短信</a></li>
+<li class="lv-2"><a href="#通知短信">通知短信</a></li>
+<li class="lv-2"><a href="#会员营销短信">会员营销短信</a></li>
+<li class="lv-2"><a href="#行业场景映射">行业场景映射</a></li>
+<li class="lv-1"><a href="#下发链路-回执机制与状态口径">下发链路、回执机制与状态口径</a></li>
+<li class="lv-2"><a href="#标准链路">标准链路</a></li>
+<li class="lv-2"><a href="#提交回执与状态回执">提交回执与状态回执</a></li>
+<li class="lv-2"><a href="#未知状态的正确理解">未知状态的正确理解</a></li>
+<li class="lv-2"><a href="#回执推送与拉取策略">回执推送与拉取策略</a></li>
+<li class="lv-1"><a href="#计费-分片与对账机制">计费、分片与对账机制</a></li>
+<li class="lv-2"><a href="#字符计费规则">字符计费规则</a></li>
+<li class="lv-2"><a href="#计费字符范围">计费字符范围</a></li>
+<li class="lv-2"><a href="#计费模式与失败返还">计费模式与失败返还</a></li>
+<li class="lv-2"><a href="#长短信分片与账单差异">长短信分片与账单差异</a></li>
+<li class="lv-1"><a href="#监管准入与码号治理">监管准入与码号治理</a></li>
+<li class="lv-2"><a href="#资质体系">资质体系</a></li>
+<li class="lv-2"><a href="#三网落地与三网合一">三网落地与三网合一</a></li>
+<li class="lv-2"><a href="#投诉指标约束">投诉指标约束</a></li>
+<li class="lv-1"><a href="#平台风控与发送限制">平台风控与发送限制</a></li>
+<li class="lv-2"><a href="#关键词-黑白名单与人工审核">关键词、黑白名单与人工审核</a></li>
+<li class="lv-2"><a href="#时间窗与频控">时间窗与频控</a></li>
+<li class="lv-2"><a href="#防轰炸策略">防轰炸策略</a></li>
+<li class="lv-2"><a href="#地区与账号级策略">地区与账号级策略</a></li>
+<li class="lv-1"><a href="#产品矩阵-文本-富媒体-阅信-5g与扩展消息类型">产品矩阵：文本、富媒体、阅信、5G与扩展消息类型</a></li>
+<li class="lv-2"><a href="#文本短信">文本短信</a></li>
+<li class="lv-2"><a href="#富媒体短信">富媒体短信</a></li>
+<li class="lv-2"><a href="#阅信-智能解析短信">阅信（智能解析短信）</a></li>
+<li class="lv-2"><a href="#5g消息">5G消息</a></li>
+<li class="lv-2"><a href="#语音短信与闪信">语音短信与闪信</a></li>
+<li class="lv-2"><a href="#ussd消息-会话型菜单交互">USSD消息（会话型菜单交互）</a></li>
+<li class="lv-2"><a href="#二进制短信-binary-sms">二进制短信（Binary SMS）</a></li>
+<li class="lv-2"><a href="#闪信-flash-sms-class-0-细化说明">闪信（Flash SMS，Class 0）细化说明</a></li>
+<li class="lv-1"><a href="#国际短信专项">国际短信专项</a></li>
+<li class="lv-2"><a href="#核心标识与国家差异">核心标识与国家差异</a></li>
+<li class="lv-2"><a href="#关键指标">关键指标</a></li>
+<li class="lv-2"><a href="#dnd与补充通道">DND与补充通道</a></li>
+<li class="lv-2"><a href="#成本结构">成本结构</a></li>
+<li class="lv-1"><a href="#客户接入-压测与上线治理">客户接入、压测与上线治理</a></li>
+<li class="lv-2"><a href="#接入方式">接入方式</a></li>
+<li class="lv-3"><a href="#web自服务">Web自服务</a></li>
+<li class="lv-3"><a href="#api接口接入">API接口接入</a></li>
+<li class="lv-2"><a href="#标准接入流程">标准接入流程</a></li>
+<li class="lv-2"><a href="#三类测试方法">三类测试方法</a></li>
+<li class="lv-2"><a href="#压测必问清单">压测必问清单</a></li>
+<li class="lv-2"><a href="#上线前核对">上线前核对</a></li>
+<li class="lv-1"><a href="#服务分层与交付策略">服务分层与交付策略</a></li>
+<li class="lv-2"><a href="#大中直客">大中直客</a></li>
+<li class="lv-2"><a href="#小微客户">小微客户</a></li>
+<li class="lv-2"><a href="#渠道客户">渠道客户</a></li>
+<li class="lv-2"><a href="#运营闭环">运营闭环</a></li>
+<li class="lv-1"><a href="#匿名案例复盘">匿名案例复盘</a></li>
+<li class="lv-2"><a href="#案例a-区域能源集团">案例A：区域能源集团</a></li>
+<li class="lv-2"><a href="#案例b-头部电商生态客户">案例B：头部电商生态客户</a></li>
+<li class="lv-2"><a href="#案例c-国家级身份认证项目">案例C：国家级身份认证项目</a></li>
+<li class="lv-2"><a href="#案例d-头部互联网平台定制项目">案例D：头部互联网平台定制项目</a></li>
+<li class="lv-2"><a href="#案例e-三甲医院私有化项目">案例E：三甲医院私有化项目</a></li>
+<li class="lv-2"><a href="#案例f-快消品牌短链追踪项目">案例F：快消品牌短链追踪项目</a></li>
+<li class="lv-1"><a href="#名词解释与机制详解-教学词典">名词解释与机制详解（教学词典）</a></li>
+<li class="lv-1"><a href="#缩写速查">缩写速查</a></li>
+<li class="lv-1"><a href="#a-4-对外发布前检查清单">A．4 对外发布前检查清单</a></li>
+<li class="lv-1"><a href="#修订说明与版本记录">修订说明与版本记录</a></li>
+  </ol>
+    </nav>
+  </aside>
+</section>
     <main class="reader-shell" id="docMain">
       <header class="doc-header">
         <p class="kicker">在线文稿</p>
@@ -325,5 +417,43 @@
 <div class="table-row"><p class="table-key">V4.1</p><p class="table-value">2026-02-09；整合“消息类型介绍”材料：新增USSD、二进制短信、闪信细化章节与术语</p></div>
       </article>
     </main>
+    <script>
+      (() => {
+        const btn = document.getElementById("tocFloatBtn");
+        const drawer = document.getElementById("tocDrawer");
+        if (!btn || !drawer) return;
+
+        const closeDrawer = () => {
+          drawer.hidden = true;
+          btn.setAttribute("aria-expanded", "false");
+          document.body.classList.remove("toc-open");
+        };
+
+        const openDrawer = () => {
+          drawer.hidden = false;
+          btn.setAttribute("aria-expanded", "true");
+          document.body.classList.add("toc-open");
+        };
+
+        btn.addEventListener("click", () => {
+          if (drawer.hidden) openDrawer();
+          else closeDrawer();
+        });
+
+        drawer.addEventListener("click", (event) => {
+          const closeBtn = event.target.closest("[data-action='close-toc']");
+          if (closeBtn) {
+            closeDrawer();
+            return;
+          }
+          const tocLink = event.target.closest("a[href^='#']");
+          if (tocLink) closeDrawer();
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeDrawer();
+        });
+      })();
+    </script>
   </body>
 </html>

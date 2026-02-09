@@ -404,7 +404,7 @@ def parse_to_html(content: str) -> tuple[str, list[tuple[int, str, str]]]:
     return "\n".join(parts), toc
 
 
-def build_toc_html(toc: list[tuple[int, str, str]]) -> str:
+def build_toc_list_html(toc: list[tuple[int, str, str]]) -> str:
     if not toc:
         return ""
 
@@ -412,15 +412,43 @@ def build_toc_html(toc: list[tuple[int, str, str]]) -> str:
         f'<li class="lv-{level}"><a href="#{anchor}">{html.escape(title)}</a></li>'
         for level, title, anchor in toc
     )
+    return f"<ol>\n{items}\n  </ol>"
+
+
+def build_toc_html(toc: list[tuple[int, str, str]]) -> str:
+    list_html = build_toc_list_html(toc)
+    if not list_html:
+        return ""
     return (
         '<nav class="doc-toc" aria-label="文档目录">\n'
         "  <h2>目录</h2>\n"
-        f"  <ol>\n{items}\n  </ol>\n"
+        f"  {list_html}\n"
         "</nav>"
     )
 
 
-def render_page(title: str, body_html: str, toc_html: str) -> str:
+def build_mobile_toc_html(toc: list[tuple[int, str, str]]) -> str:
+    list_html = build_toc_list_html(toc)
+    if not list_html:
+        return ""
+    return (
+        '<button class="toc-float-btn" id="tocFloatBtn" type="button" aria-controls="tocDrawer" aria-expanded="false">目录</button>\n'
+        '<section class="toc-drawer" id="tocDrawer" hidden>\n'
+        '  <button class="toc-drawer-backdrop" type="button" data-action="close-toc" aria-label="关闭目录"></button>\n'
+        '  <aside class="toc-drawer-panel" role="dialog" aria-modal="true" aria-label="文档目录">\n'
+        '    <div class="toc-drawer-head">\n'
+        "      <h2>目录</h2>\n"
+        '      <button class="toc-close" type="button" data-action="close-toc">关闭</button>\n'
+        "    </div>\n"
+        '    <nav class="doc-toc-mobile" aria-label="移动目录">\n'
+        f"      {list_html}\n"
+        "    </nav>\n"
+        "  </aside>\n"
+        "</section>"
+    )
+
+
+def render_page(title: str, body_html: str, toc_html: str, mobile_toc_html: str) -> str:
     return f"""<!doctype html>
 <html lang=\"zh-CN\">
   <head>
@@ -430,11 +458,12 @@ def render_page(title: str, body_html: str, toc_html: str) -> str:
     <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />
     <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />
     <link href=\"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap\" rel=\"stylesheet\" />
-    <link rel=\"stylesheet\" href=\"../assets/reader.css\" />
+    <link rel=\"stylesheet\" href=\"../assets/reader.css?v=20260209-2338\" />
   </head>
   <body>
     <a class=\"skip-link\" href=\"#docMain\">跳到正文</a>
     <a class=\"back-float\" href=\"../index.html\" target=\"_top\" rel=\"noopener\">返回学习站</a>
+    {mobile_toc_html}
     <main class=\"reader-shell\" id=\"docMain\">
       <header class=\"doc-header\">
         <p class=\"kicker\">在线文稿</p>
@@ -446,6 +475,44 @@ def render_page(title: str, body_html: str, toc_html: str) -> str:
 {body_html}
       </article>
     </main>
+    <script>
+      (() => {{
+        const btn = document.getElementById("tocFloatBtn");
+        const drawer = document.getElementById("tocDrawer");
+        if (!btn || !drawer) return;
+
+        const closeDrawer = () => {{
+          drawer.hidden = true;
+          btn.setAttribute("aria-expanded", "false");
+          document.body.classList.remove("toc-open");
+        }};
+
+        const openDrawer = () => {{
+          drawer.hidden = false;
+          btn.setAttribute("aria-expanded", "true");
+          document.body.classList.add("toc-open");
+        }};
+
+        btn.addEventListener("click", () => {{
+          if (drawer.hidden) openDrawer();
+          else closeDrawer();
+        }});
+
+        drawer.addEventListener("click", (event) => {{
+          const closeBtn = event.target.closest("[data-action='close-toc']");
+          if (closeBtn) {{
+            closeDrawer();
+            return;
+          }}
+          const tocLink = event.target.closest("a[href^='#']");
+          if (tocLink) closeDrawer();
+        }});
+
+        document.addEventListener("keydown", (event) => {{
+          if (event.key === "Escape") closeDrawer();
+        }});
+      }})();
+    </script>
   </body>
 </html>
 """
@@ -458,7 +525,7 @@ def build_one(spec: DocSpec) -> None:
     raw = read_tex(source_path)
     preprocessed = preprocess(raw, source_path)
     body_html, toc = parse_to_html(preprocessed)
-    page_html = render_page(spec.title, body_html, build_toc_html(toc))
+    page_html = render_page(spec.title, body_html, build_toc_html(toc), build_mobile_toc_html(toc))
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(page_html, encoding="utf-8")

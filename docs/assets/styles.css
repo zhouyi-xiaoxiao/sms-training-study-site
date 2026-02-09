@@ -231,6 +231,13 @@ a { color: var(--brand-2); }
   z-index: 3;
 }
 
+/* Quiz filters should scroll away with content to avoid constant header blocking. */
+.quiz-tools {
+  position: static;
+  top: auto;
+  z-index: auto;
+}
+
 .tool-row {
   display: flex;
   align-items: center;
