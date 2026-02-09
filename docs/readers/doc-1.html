@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>企业短信培训学习手册（专业文稿版） · 在线文稿</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/reader.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#docMain">跳到正文</a>
+    <main class="reader-shell" id="docMain">
+      <header class="doc-header">
+        <p class="kicker">在线文稿</p>
+        <h1>企业短信培训学习手册（专业文稿版）</h1>
+        <a class="back-link" href="../index.html" target="_top" rel="noopener">返回学习站</a>
+      </header>
+      <nav class="doc-toc" aria-label="文档目录">
+  <h2>目录</h2>
+  <ol>
+<li class="lv-1"><a href="#课程总览与学习路径">课程总览与学习路径</a></li>
+<li class="lv-2"><a href="#培训时间与组织方式">培训时间与组织方式</a></li>
+<li class="lv-2"><a href="#四课主线">四课主线</a></li>
+<li class="lv-2"><a href="#零基础先读-5分钟入门">零基础先读（5分钟入门）</a></li>
+<li class="lv-2"><a href="#出版级口径控制">出版级口径控制</a></li>
+<li class="lv-3"><a href="#术语统一标准">术语统一标准</a></li>
+<li class="lv-3"><a href="#匿名策略与规则版本">匿名策略与规则版本</a></li>
+<li class="lv-1"><a href="#企业短信的定义-价值与边界">企业短信的定义、价值与边界</a></li>
+<li class="lv-2"><a href="#定义与业务本质">定义与业务本质</a></li>
+<li class="lv-2"><a href="#为什么企业短信仍是基础设施">为什么企业短信仍是基础设施</a></li>
+<li class="lv-2"><a href="#合规边界">合规边界</a></li>
+<li class="lv-1"><a href="#一条企业短信的完整构成">一条企业短信的完整构成</a></li>
+<li class="lv-2"><a href="#主码号与子端口">主码号与子端口</a></li>
+<li class="lv-2"><a href="#签名机制">签名机制</a></li>
+<li class="lv-2"><a href="#签名与子端口映射规则">签名与子端口映射规则</a></li>
+<li class="lv-2"><a href="#正文与引流信息">正文与引流信息</a></li>
+<li class="lv-1"><a href="#短信类型-业务场景与时效特征">短信类型、业务场景与时效特征</a></li>
+<li class="lv-2"><a href="#验证码短信">验证码短信</a></li>
+<li class="lv-2"><a href="#通知短信">通知短信</a></li>
+<li class="lv-2"><a href="#会员营销短信">会员营销短信</a></li>
+<li class="lv-2"><a href="#行业场景映射">行业场景映射</a></li>
+<li class="lv-1"><a href="#下发链路-回执机制与状态口径">下发链路、回执机制与状态口径</a></li>
+<li class="lv-2"><a href="#标准链路">标准链路</a></li>
+<li class="lv-2"><a href="#提交回执与状态回执">提交回执与状态回执</a></li>
+<li class="lv-2"><a href="#未知状态的正确理解">未知状态的正确理解</a></li>
+<li class="lv-2"><a href="#回执推送与拉取策略">回执推送与拉取策略</a></li>
+<li class="lv-1"><a href="#计费-分片与对账机制">计费、分片与对账机制</a></li>
+<li class="lv-2"><a href="#字符计费规则">字符计费规则</a></li>
+<li class="lv-2"><a href="#计费字符范围">计费字符范围</a></li>
+<li class="lv-2"><a href="#计费模式与失败返还">计费模式与失败返还</a></li>
+<li class="lv-2"><a href="#长短信分片与账单差异">长短信分片与账单差异</a></li>
+<li class="lv-1"><a href="#监管准入与码号治理">监管准入与码号治理</a></li>
+<li class="lv-2"><a href="#资质体系">资质体系</a></li>
+<li class="lv-2"><a href="#三网落地与三网合一">三网落地与三网合一</a></li>
+<li class="lv-2"><a href="#投诉指标约束">投诉指标约束</a></li>
+<li class="lv-1"><a href="#平台风控与发送限制">平台风控与发送限制</a></li>
+<li class="lv-2"><a href="#关键词-黑白名单与人工审核">关键词、黑白名单与人工审核</a></li>
+<li class="lv-2"><a href="#时间窗与频控">时间窗与频控</a></li>
+<li class="lv-2"><a href="#防轰炸策略">防轰炸策略</a></li>
+<li class="lv-2"><a href="#地区与账号级策略">地区与账号级策略</a></li>
+<li class="lv-1"><a href="#产品矩阵-文本-富媒体-阅信-5g与扩展消息类型">产品矩阵：文本、富媒体、阅信、5G与扩展消息类型</a></li>
+<li class="lv-2"><a href="#文本短信">文本短信</a></li>
+<li class="lv-2"><a href="#富媒体短信">富媒体短信</a></li>
+<li class="lv-2"><a href="#阅信-智能解析短信">阅信（智能解析短信）</a></li>
+<li class="lv-2"><a href="#5g消息">5G消息</a></li>
+<li class="lv-2"><a href="#语音短信与闪信">语音短信与闪信</a></li>
+<li class="lv-2"><a href="#ussd消息-会话型菜单交互">USSD消息（会话型菜单交互）</a></li>
+<li class="lv-2"><a href="#二进制短信-binary-sms">二进制短信（Binary SMS）</a></li>
+<li class="lv-2"><a href="#闪信-flash-sms-class-0-细化说明">闪信（Flash SMS，Class 0）细化说明</a></li>
+<li class="lv-1"><a href="#国际短信专项">国际短信专项</a></li>
+<li class="lv-2"><a href="#核心标识与国家差异">核心标识与国家差异</a></li>
+<li class="lv-2"><a href="#关键指标">关键指标</a></li>
+<li class="lv-2"><a href="#dnd与补充通道">DND与补充通道</a></li>
+<li class="lv-2"><a href="#成本结构">成本结构</a></li>
+<li class="lv-1"><a href="#客户接入-压测与上线治理">客户接入、压测与上线治理</a></li>
+<li class="lv-2"><a href="#接入方式">接入方式</a></li>
+<li class="lv-3"><a href="#web自服务">Web自服务</a></li>
+<li class="lv-3"><a href="#api接口接入">API接口接入</a></li>
+<li class="lv-2"><a href="#标准接入流程">标准接入流程</a></li>
+<li class="lv-2"><a href="#三类测试方法">三类测试方法</a></li>
+<li class="lv-2"><a href="#压测必问清单">压测必问清单</a></li>
+<li class="lv-2"><a href="#上线前核对">上线前核对</a></li>
+<li class="lv-1"><a href="#服务分层与交付策略">服务分层与交付策略</a></li>
+<li class="lv-2"><a href="#大中直客">大中直客</a></li>
+<li class="lv-2"><a href="#小微客户">小微客户</a></li>
+<li class="lv-2"><a href="#渠道客户">渠道客户</a></li>
+<li class="lv-2"><a href="#运营闭环">运营闭环</a></li>
+<li class="lv-1"><a href="#匿名案例复盘">匿名案例复盘</a></li>
+<li class="lv-2"><a href="#案例a-区域能源集团">案例A：区域能源集团</a></li>
+<li class="lv-2"><a href="#案例b-头部电商生态客户">案例B：头部电商生态客户</a></li>
+<li class="lv-2"><a href="#案例c-国家级身份认证项目">案例C：国家级身份认证项目</a></li>
+<li class="lv-2"><a href="#案例d-头部互联网平台定制项目">案例D：头部互联网平台定制项目</a></li>
+<li class="lv-2"><a href="#案例e-三甲医院私有化项目">案例E：三甲医院私有化项目</a></li>
+<li class="lv-2"><a href="#案例f-快消品牌短链追踪项目">案例F：快消品牌短链追踪项目</a></li>
+<li class="lv-1"><a href="#名词解释与机制详解-教学词典">名词解释与机制详解（教学词典）</a></li>
+<li class="lv-1"><a href="#缩写速查">缩写速查</a></li>
+<li class="lv-1"><a href="#a-4-对外发布前检查清单">A．4 对外发布前检查清单</a></li>
+<li class="lv-1"><a href="#修订说明与版本记录">修订说明与版本记录</a></li>
+  </ol>
+</nav>
+      <article class="doc-content">
+<p>企业短信培训学习手册（专业文稿版）</p>
+<p>由课堂逐字内容重写为可学习、可发布的书稿体文档</p>
+<aside class="callout">
+<p>文档定位</p>
+<p>本文档基于完整培训语料进行专业文稿化重写，目标是把课堂口语内容沉淀为可长期复用的知识资产。 重写过程坚持三项原则：</p>
+<ul><li>不改变业务结论，不削弱规则边界，不稀释实操经验。</li><li>去除对话体、口头语和重复表达，统一为书面叙事结构。</li><li>对关键名词、机制与口径进行系统化解释，保证可直接教学与复盘。</li></ul>
+</aside>
+<p>版本：V4.0（专业文稿版） 规则基线：SMS-CN-RULE-v2026.02 / SMS-INTL-RULE-v2026.02 / SMS-OPS-RULE-v2026.02 匿名等级：Release-L2（案例匿名化，行业标签保留） 整理时间：2026年2月8日 用途：企业短信业务学习、交付培训、销售与运营协同、项目复盘</p>
+<h1 id="课程总览与学习路径">课程总览与学习路径</h1>
+<h2 id="培训时间与组织方式">培训时间与组织方式</h2>
+<p>本次课程按“2月启动、3月集中授课”的节奏组织。春节前后两周预留为空档期，3月开始按照固定计划连续授课，单次课程时段主要集中在17:00--18:30，采用线上与线下并行的方式。课程定位为企业短信业务基础能力培训，目标人群覆盖销售、运营、交付与技术支持岗位。</p>
+<h2 id="四课主线">四课主线</h2>
+<div class="table-row"><p class="table-key">课次</p><p class="table-value">核心主题</p></div>
+<div class="table-row"><p class="table-key">第1课</p><p class="table-value">企业短信基础：定义、构成、签名与子端口、计费口径、状态回执、产品形态（文本/富媒体/阅信/5G）</p></div>
+<div class="table-row"><p class="table-key">第2课</p><p class="table-value">监管与准入：SP证与码号证、码号落地、三网合一、黑白名单、上行下行、国际短信关键术语</p></div>
+<div class="table-row"><p class="table-key">第3课</p><p class="table-value">规则深化：接口协议、投诉治理、签名规范、发送限制、有效号码、计费与运营机制</p></div>
+<div class="table-row"><p class="table-key">第4课</p><p class="table-value">客户接入与交付：接入流程、测试方法（点测/压测/批测）、服务分层、典型案例复盘</p></div>
+<h2 id="零基础先读-5分钟入门">零基础先读（5分钟入门）</h2>
+<p>若你首次接触企业短信，建议先记住以下四个“骨架概念”，再进入后续章节：</p>
+<ol><li>业务本质：企业短信是 B2C 触达能力，费用由企业承担。</li><li>链路关键：客户提交请求 → 平台风控处理 → 通道下发 → 回执返回。</li><li>合规底线：签名与引流需报备，营销必须有会员前提和退订口径。</li><li>结果口径：最终状态只有成功/失败；未知是暂未返回，不是第三终态。</li></ol>
+<p>完成上述四点理解后，再学习“计费规则、风控策略、接入压测、客户交付”，理解速度会显著提升。</p>
+<h2 id="出版级口径控制">出版级口径控制</h2>
+<h3 id="术语统一标准">术语统一标准</h3>
+<div class="table-row"><p class="table-key">标准术语</p><p class="table-value">统一写法；课堂常见别称；说明</p></div>
+<div class="table-row"><p class="table-key">主码号</p><p class="table-value">主码号（前8位）；码号、主端口；对外文稿统一写“主码号”</p></div>
+<div class="table-row"><p class="table-key">子端口</p><p class="table-value">子端口（SubID）；扩展、后缀、扩展码；对外文稿统一写“子端口（SubID）”</p></div>
+<div class="table-row"><p class="table-key">携号转网</p><p class="table-value">携号转网；转网、号转码；统一写“携号转网”</p></div>
+<div class="table-row"><p class="table-key">会员营销短信</p><p class="table-value">会员营销短信；会销短信；统一写“会员营销短信”</p></div>
+<div class="table-row"><p class="table-key">状态回执</p><p class="table-value">状态回执（成功/失败）；状态报告、回执；“未知”不作为最终状态</p></div>
+<div class="table-row"><p class="table-key">引流信息</p><p class="table-value">引流信息（链接/号码）；引流、落地链接；链接与号码均需纳入报备管理</p></div>
+<h3 id="匿名策略与规则版本">匿名策略与规则版本</h3>
+<p>本稿采用 Release-L2 匿名等级：不公开客户实名、个人姓名、内部群名和私有项目代号；仅保留“行业+场景+能力”信息。全文规则口径统一适用以下版本基线：</p>
+<ul><li>SMS-CN-RULE-v2026.02（中国短信规则基线）</li><li>SMS-INTL-RULE-v2026.02（国际短信规则基线）</li><li>SMS-OPS-RULE-v2026.02（运营交付规则基线）</li></ul>
+<h1 id="企业短信的定义-价值与边界">企业短信的定义、价值与边界</h1>
+<h2 id="定义与业务本质">定义与业务本质</h2>
+<p>企业短信并非个人社交短信的延伸，而是企业对其用户提供通知、验证和会员营销服务的基础通信能力。其本质属于 B2C 信息触达服务：企业发起业务消息，平台负责合规处理与链路下发，终端用户接收消息，费用由企业承担而非终端用户承担。</p>
+<h2 id="为什么企业短信仍是基础设施">为什么企业短信仍是基础设施</h2>
+<p>尽管个人沟通大量迁移至即时通讯工具，但企业业务链路仍高度依赖短信，原因包括：</p>
+<ol><li>实名身份绑定能力强，适配注册、登录和交易验证。</li><li>与业务系统天然耦合，适合自动触发型通知。</li><li>不依赖特定App生态，覆盖能力稳定。</li></ol>
+<h2 id="合规边界">合规边界</h2>
+<p>短信服务不能脱离用户授权体系。尤其在营销场景中，必须以会员关系或明确授权为前提。若企业向非会员发送营销信息，会直接触发隐私、投诉与监管风险。因此，短信业务是“可触达能力”与“合规约束能力”的组合，不是单向度的批量发送能力。</p>
+<h1 id="一条企业短信的完整构成">一条企业短信的完整构成</h1>
+<h2 id="主码号与子端口">主码号与子端口</h2>
+<p>企业短信通常由主码号与子端口共同形成发件标识。主码号前缀为固定资源，子端口用于业务映射、签名绑定与差异化识别。课程口径中，主码号前8位固定，整体位长可扩展至20位，子端口最大扩展长度可达12位。</p>
+<h2 id="签名机制">签名机制</h2>
+<p>国内短信签名采用固定格式 【签名】，且必须通过报备后才能用于下发。可用于报备的签名来源主要包括企业全称、合规简称、已核准商标及部分可核验备案主体（以运营商当期规则为准）。简称报备必须满足两个条件：不可跳字、具备唯一性。</p>
+<h2 id="签名与子端口映射规则">签名与子端口映射规则</h2>
+<p>子端口到签名是“一对一”关系，即同一子端口仅可绑定一个签名；签名到子端口可为“一对多”，即一个签名可在多个子端口上报备。该规则是后续引流报备、投诉追溯与资源治理的基础。</p>
+<h2 id="正文与引流信息">正文与引流信息</h2>
+<p>正文必须与签名主体业务相关。营销短信尾部必须包含统一退订口径 拒收请回复R。正文中的引流信息（链接、电话号码）已纳入前置报备体系，不可随意替换。若同一主体存在多组链接/号码组合，通常需要增加子端口以满足一一映射管理。</p>
+<h1 id="短信类型-业务场景与时效特征">短信类型、业务场景与时效特征</h1>
+<h2 id="验证码短信">验证码短信</h2>
+<p>验证码短信核心指标是时效，通常要求秒级到达。用户行为与短信触发强绑定，若延迟过高，直接影响登录、注册和交易转化。</p>
+<h2 id="通知短信">通知短信</h2>
+<p>通知短信覆盖动账通知、订单通知、物流通知、系统提醒、工单通知等场景。其时效要求低于验证码，但对稳定触达和状态可追踪要求较高。</p>
+<h2 id="会员营销短信">会员营销短信</h2>
+<p>会员营销短信用于促活、复购、促销和召回。其典型特征是批量下发、QPS较高、时效容忍度相对更宽。其底线规则是“会员前提+退订口径+时间窗限制+频控限制”。</p>
+<h2 id="行业场景映射">行业场景映射</h2>
+<ul><li>电商：验证码、订单通知、活动营销并存，大促期高峰明显。</li><li>物流：通知占主导，时效与稳定性要求高。</li><li>银行与保险：动账与安全验证占比高，投诉治理要求严。</li><li>能源与电力：缴费提醒、欠费通知、工单通知为核心。</li><li>航旅与出行：订单、延误、值机等通知对实时性要求高。</li><li>教育与内容平台：通知与营销并行，周期性触达明显。</li></ul>
+<h1 id="下发链路-回执机制与状态口径">下发链路、回执机制与状态口径</h1>
+<h2 id="标准链路">标准链路</h2>
+<p>一条短信从业务触发到结果闭环，通常经历以下路径：</p>
+<ol><li>客户业务系统发起短信请求。</li><li>通过 HTTP/HTTPS/CMPP 等接口提交至短信平台。</li><li>平台执行签名校验、报备校验、风控校验、频控校验等处理。</li><li>合规消息进入运营商或供应商通道，完成终端下发。</li><li>平台回传状态回执并处理上行消息。</li></ol>
+<h2 id="提交回执与状态回执">提交回执与状态回执</h2>
+<p>提交回执表示“平台已接收请求”；状态回执表示“发送结果”。状态回执最终口径仅有成功与失败两类。</p>
+<h2 id="未知状态的正确理解">未知状态的正确理解</h2>
+<p>“未知”不是第三种最终状态，而是“暂未返回最终状态”的中间态。通常在72小时窗口内逐步收敛为成功或失败。对账与复盘应以72小时后的稳定口径为准。</p>
+<h2 id="回执推送与拉取策略">回执推送与拉取策略</h2>
+<p>平台支持按客户承载能力调整回执回推速率。少量重点客户可采用主动拉取模式，但需同步评估资源占用、访问安全、数据隔离与拉取纪律，避免状态堆积和平台侧拥塞。</p>
+<h1 id="计费-分片与对账机制">计费、分片与对账机制</h1>
+<h2 id="字符计费规则">字符计费规则</h2>
+<aside class="callout">
+<p>统一口径</p>
+<ul><li>短信长度 ≤67 字：按1条计费。</li><li>长短信长度 &gt;67 字：按67字分片计费。</li><li>示例：140字按3条计费，而非2条。</li></ul>
+</aside>
+<h2 id="计费字符范围">计费字符范围</h2>
+<p>凡出现在短信内容中的字符均计费，包括签名、括号、标点、空格、链接、换行等，不存在“签名不计费”“空格不计费”的特例口径。</p>
+<h2 id="计费模式与失败返还">计费模式与失败返还</h2>
+<p>常见计费模式包括成功计费、失败不计费（按合同定义）与提交计费。预付费模式下，平台一般采用“先预扣、后返还”机制：失败条数在72小时窗口后返还。</p>
+<h2 id="长短信分片与账单差异">长短信分片与账单差异</h2>
+<p>长短信可能出现分片级成功/失败并触发补发。若客户端采用“长短信单条状态口径”，而平台采用“分片口径”，双方账单会产生统计差异。该问题必须在合同或对账规则中提前约定。</p>
+<h1 id="监管准入与码号治理">监管准入与码号治理</h1>
+<h2 id="资质体系">资质体系</h2>
+<p>开展企业短信服务需具备增值电信业务经营许可证（SP证）与码号证。码号证仅代表号码资源资格，不代表可直接发送；只有完成运营商落地形成通道后，才能承载真实业务。</p>
+<h2 id="三网落地与三网合一">三网落地与三网合一</h2>
+<p>短信发送遵循分网原则：移动、联通、电信分别落地、分别发送。三网合一是指同一发件标识在三网一致可见，通常适用于对品牌一致性要求高的大型客户。由于资源稀缺与维护难度高，三网合一方案通常成本更高。</p>
+<h2 id="投诉指标约束">投诉指标约束</h2>
+<p>投诉治理并非售后补救动作，而是通道生存条件。通道治理通常同时考核投诉比率与投诉绝对值，超限可能触发限流、罚则或关停。销售与运营在接入前必须评估客户历史投诉水平与业务风险等级。</p>
+<h1 id="平台风控与发送限制">平台风控与发送限制</h1>
+<h2 id="关键词-黑白名单与人工审核">关键词、黑白名单与人工审核</h2>
+<p>平台通过关键词库、黑名单库与人工审核形成多层风控。黑名单并非单一等级，不同等级对应不同处置策略；白名单用于测试号、告警号或重保号放行。高风险营销业务通常采用更严格审核策略。</p>
+<h2 id="时间窗与频控">时间窗与频控</h2>
+<ul><li>通知与验证码：通常可全天发送（以合规场景为前提）。</li><li>会员营销：常规时间窗为早8晚10。</li><li>高风险营销：可进一步收紧到早8晚6等策略。</li></ul>
+<p>平台可对禁发时段提交的营销短信采取“直接失败”或“延时排队”两种策略。</p>
+<h2 id="防轰炸策略">防轰炸策略</h2>
+<p>验证码防轰炸用于限制同号码在短时窗内被多签名、多业务高频触发，防止恶意轰炸和终端骚扰。该策略本质是用户保护机制，不是单纯限流机制。</p>
+<h2 id="地区与账号级策略">地区与账号级策略</h2>
+<p>针对高风险业务可启用地区屏蔽策略和更严频控策略；策略粒度可覆盖账号级、签名级、号码级，且可依据投诉与效果数据动态优化。</p>
+<h1 id="产品矩阵-文本-富媒体-阅信-5g与扩展消息类型">产品矩阵：文本、富媒体、阅信、5G与扩展消息类型</h1>
+<h2 id="文本短信">文本短信</h2>
+<p>文本短信是当前最稳定、最广覆盖、最低门槛的基础能力，适合验证码与通知主链路。</p>
+<h2 id="富媒体短信">富媒体短信</h2>
+<p>富媒体短信支持图文、音视频组合，适用于营销展示与活动传播。其优点是信息表现力强，缺点是成本更高、素材和审核链路更复杂。</p>
+<h2 id="阅信-智能解析短信">阅信（智能解析短信）</h2>
+<p>阅信通常以“文本+解析链接”方式提交，终端支持时可呈现卡片式展示，并提供按钮跳转到App、小程序、网页或客服电话。解析链路可提供聚合统计（如解析数、点击率、UV/PV），但明细粒度受产品与通道能力约束。iOS端通常需要额外点击进入解析页。</p>
+<h2 id="5g消息">5G消息</h2>
+<p>5G消息具备更丰富的交互结构（多按钮、会话、Chatbot等），但规模化应用仍受终端覆盖与可寻址能力限制。</p>
+<h2 id="语音短信与闪信">语音短信与闪信</h2>
+<p>语音验证码常作为文本验证码补充，用于提高可达性；闪信用于强提醒场景（如来电前提醒），但在不同终端上的展示稳定性存在差异。</p>
+<h2 id="ussd消息-会话型菜单交互">USSD消息（会话型菜单交互）</h2>
+<p>USSD（Unstructured Supplementary Service Data）是基于GSM网络的实时会话协议，典型入口是“*...#”代码。它与文本短信“存储转发”机制不同：USSD在会话期间保持在线交互，消息通常不落地到终端收件箱。</p>
+<ul><li>典型场景：余额查询、话费充值、简易银行菜单、功能机交互服务。</li><li>主要优势：实时双向、弱网可用、终端覆盖广、无需安装App。</li><li>主要限制：文本菜单体验较弱、会话有超时窗口、单次承载字符有限。</li></ul>
+<h2 id="二进制短信-binary-sms">二进制短信（Binary SMS）</h2>
+<p>二进制短信仍走短信通道，但负载是二进制数据而非文本字符。常通过 DCS/UDH 等头信息告诉终端“如何解析与处理”。</p>
+<ul><li>典型场景：设备配置下发、M2M控制指令、WAP Push、SIM应用更新。</li><li>主要优势：依托短信网络，覆盖广、可在小数据控制场景中稳定送达。</li><li>主要限制：单条承载上限小（约140字节级）、实现与联调复杂、终端兼容性需要验证。</li></ul>
+<h2 id="闪信-flash-sms-class-0-细化说明">闪信（Flash SMS，Class 0）细化说明</h2>
+<p>闪信本质是 Class 0 短信：消息优先弹窗显示，通常不进入收件箱。它适合强时效提醒，不适合常规营销。</p>
+<ul><li>典型场景：紧急告警、安全提醒、一次性验证码（需谨慎评估锁屏可见风险）。</li><li>主要优势：可见性高、触达后注意力强。</li><li>主要限制：侵入性强、可回看性弱；在锁屏场景下存在信息暴露风险。</li></ul>
+<h1 id="国际短信专项">国际短信专项</h1>
+<h2 id="核心标识与国家差异">核心标识与国家差异</h2>
+<p>国际短信通常以 Sender ID 识别品牌，不同国家对 Sender ID 形态、报备资料、审批周期、退订口径要求不同。常见形态包括纯数字、纯字母或混合格式。</p>
+<h2 id="关键指标">关键指标</h2>
+<p>国际通知场景常看成功率；国际验证码场景更关注回填率，即“收到验证码后实际填回业务页面的比例”。回填率比单纯提交成功率更能反映链路可用性与用户体验。</p>
+<h2 id="dnd与补充通道">DND与补充通道</h2>
+<p>部分国家存在 DND（防骚扰）机制，DND命中号码可能不可触达。某些国家中，WhatsApp等通道可作为短信补充，但仍需遵守当地模板与会话规则。</p>
+<h2 id="成本结构">成本结构</h2>
+<p>国际短信除单条发送成本外，部分国家可能存在 Sender ID 注册费、月租费等附加成本，需在商务阶段提前告知客户并纳入报价。</p>
+<h1 id="客户接入-压测与上线治理">客户接入、压测与上线治理</h1>
+<h2 id="接入方式">接入方式</h2>
+<h3 id="web自服务">Web自服务</h3>
+<p>适用于小微客户或无技术团队客户。客户可在页面完成签名模板配置、号码导入、短信发送与结果查询。</p>
+<h3 id="api接口接入">API接口接入</h3>
+<p>适用于中大型客户。常见协议包括 HTTP/HTTPS、CMPP，国际场景常用 SMPP。此类客户通常具备多供应商调度能力，对接口稳定性和回执治理要求更高。</p>
+<h2 id="标准接入流程">标准接入流程</h2>
+<p>需求澄清 → 账号开通 → 联调测试 → 报备完成 → 测试验收 → 正式上线 → 运营复盘。</p>
+<h2 id="三类测试方法">三类测试方法</h2>
+<ol><li>点测：验证接口与基础链路可用。</li><li>压测：验证平台承载与全链路吞吐。</li><li>批测：切入小规模真实业务，观察持续稳定性后再扩量。</li></ol>
+<h2 id="压测必问清单">压测必问清单</h2>
+<p>压测前必须确认五个参数：目标QPS、压测模式（仅平台/全链路）、开始时间、持续时长、回执策略。高QPS压测必须提前联动运营与技术，避免冲击在线业务。</p>
+<h2 id="上线前核对">上线前核对</h2>
+<p>上线前需完成：签名报备与引流报备状态确认、资源池策略确认、回执策略确认、风控参数确认、应急联系人确认与故障升级路径确认。</p>
+<h1 id="服务分层与交付策略">服务分层与交付策略</h1>
+<h2 id="大中直客">大中直客</h2>
+<p>大中直客通常具有高体量、高SLA、高安全要求特征。服务策略应采用高频沟通、重保机制、定制能力和报告化交付。</p>
+<h2 id="小微客户">小微客户</h2>
+<p>小微客户重点在于快速接入和稳定可用。推荐“标准化流程+自服务+预付优先”的低摩擦交付模式，避免高人工成本吞噬利润。</p>
+<h2 id="渠道客户">渠道客户</h2>
+<p>渠道合作核心是资源能力协同。评估维度应聚焦成本、质量、稳定性与交付速度，而非单一价格。</p>
+<h2 id="运营闭环">运营闭环</h2>
+<p>客户服务应形成“监控发现--定位分析--策略调整--结果回看”的闭环机制。大促、节假日、政策切换期应执行专项重保和值班制度。</p>
+<h1 id="匿名案例复盘">匿名案例复盘</h1>
+<h2 id="案例a-区域能源集团">案例A：区域能源集团</h2>
+<p>该类客户以缴费提醒、欠费通知、工单通知为主，合作周期长，强调稳定性、品牌一致性与合规可审计。</p>
+<h2 id="案例b-头部电商生态客户">案例B：头部电商生态客户</h2>
+<p>该类客户在大促期高峰显著，QPS要求高，需重点保障平台承载、通道稳定和状态回传能力。</p>
+<h2 id="案例c-国家级身份认证项目">案例C：国家级身份认证项目</h2>
+<p>该类项目安全性和审计要求极高，重点在于接口安全、状态准确、可追溯和持续可用。</p>
+<h2 id="案例d-头部互联网平台定制项目">案例D：头部互联网平台定制项目</h2>
+<p>该类项目体现“平台能力输出”而非单通道售卖，核心价值在于技术能力、规则体系与持续运维交付。</p>
+<h2 id="案例e-三甲医院私有化项目">案例E：三甲医院私有化项目</h2>
+<p>该类项目强调私有化部署、长期运维与可控治理，通常具有较高客户粘性和复购潜力。</p>
+<h2 id="案例f-快消品牌短链追踪项目">案例F：快消品牌短链追踪项目</h2>
+<p>该类项目通过短信短链实现二次触达追踪，关注 UV/PV、点击链路和转化归因能力。</p>
+<h1 id="名词解释与机制详解-教学词典">名词解释与机制详解（教学词典）</h1>
+<div class="table-row"><p class="table-key">名词</p><p class="table-value">定义；实操要点；常见误区</p></div>
+<div class="table-row"><p class="table-key">SP证</p><p class="table-value">增值电信业务经营许可证，短信业务准入资质之一；到期前续期，投标时常作为门槛资质；误以为有SP证即可直接发短信</p></div>
+<div class="table-row"><p class="table-key">码号证</p><p class="table-value">企业可申请并持有的码号资源资格证明；获取后需运营商落地形成通道；误以为码号证=可发送能力</p></div>
+<div class="table-row"><p class="table-key">落地</p><p class="table-value">在运营商侧完成码号可用化配置的过程；分网落地、分网治理；误以为一次落地可发三网</p></div>
+<div class="table-row"><p class="table-key">三网合一</p><p class="table-value">同一发件标识在移动/联通/电信一致可见；常用于品牌一致性要求高场景；误以为三网合一成本不变</p></div>
+<div class="table-row"><p class="table-key">主码号</p><p class="table-value">发件标识的基础段（前8位）；与子端口共同组成完整标识；与子端口混用概念</p></div>
+<div class="table-row"><p class="table-key">子端口（SubID）</p><p class="table-value">主码号后缀，用于签名和业务映射；一端口一签名；一签名可多端口；误以为一端口可绑定多签名</p></div>
+<div class="table-row"><p class="table-key">签名报备</p><p class="table-value">将签名提交运营链路审核备案；未报备不可发送；误以为签名仅内部配置即可</p></div>
+<div class="table-row"><p class="table-key">引流信息报备</p><p class="table-value">对正文中的链接和号码进行前置报备；链接变更需同步更新报备；忽略号码也属于引流信息</p></div>
+<div class="table-row"><p class="table-key">MT</p><p class="table-value">下行短信（平台发给用户）；用于统计发送侧能力；与MO混淆</p></div>
+<div class="table-row"><p class="table-key">MO</p><p class="table-value">上行短信（用户回复平台）；退订、口令回复依赖MO链路；误以为所有链路都天然支持MO</p></div>
+<div class="table-row"><p class="table-key">提交回执</p><p class="table-value">平台确认“已接收请求”；用于判断接口可用性；误以为提交成功=发送成功</p></div>
+<div class="table-row"><p class="table-key">状态回执</p><p class="table-value">发送结果回执（成功/失败）；用于对账、结算、复盘；将未知当作第三终态</p></div>
+<div class="table-row"><p class="table-key">未知状态</p><p class="table-value">暂未返回最终状态的中间态；72小时窗口后再做稳定口径对账；将未知直接等同失败</p></div>
+<div class="table-row"><p class="table-key">QPS</p><p class="table-value">每秒处理请求或发送条数能力指标；压测、重保、容量规划核心指标；只关注峰值，不关注持续时长</p></div>
+<div class="table-row"><p class="table-key">关键词策略</p><p class="table-value">基于内容词库的合规拦截机制；分级配置，按账号风险管理；误以为关键词永远不可放行</p></div>
+<div class="table-row"><p class="table-key">黑名单</p><p class="table-value">不可触达或高风险号码集合；分级治理，非全部可解除；误以为所有黑名单可人工解封</p></div>
+<div class="table-row"><p class="table-key">白名单</p><p class="table-value">特殊放行号码集合；常用于测试号、告警号、重保号；误以为白名单可无限制发送</p></div>
+<div class="table-row"><p class="table-key">防轰炸策略</p><p class="table-value">防止同号码短时高频被验证码冲击；控制时间窗与频率阈值；误以为仅是成本控制策略</p></div>
+<div class="table-row"><p class="table-key">时间窗控制</p><p class="table-value">限制特定类型短信发送时段；营销场景必须严格执行；忽略时区与业务特殊窗口</p></div>
+<div class="table-row"><p class="table-key">频控</p><p class="table-value">限制单号码、单账号发送频次；按风险等级动态调整；仅看成功率忽视投诉风险</p></div>
+<div class="table-row"><p class="table-key">失败返还</p><p class="table-value">预付费模式下失败条数返还机制；72小时后返还更稳定；当日即要求绝对精确返还</p></div>
+<div class="table-row"><p class="table-key">长短信分片</p><p class="table-value">超67字后按67字分片发送与计费；对账必须统一分片口径；误以为140字计2条</p></div>
+<div class="table-row"><p class="table-key">Sender ID</p><p class="table-value">国际短信发件标识；按国家规则申请与维护；各国规则想当然通用</p></div>
+<div class="table-row"><p class="table-key">DND</p><p class="table-value">防骚扰名单，命中后可能不可触达；需在国家规则内规避触发；把DND当作临时网络问题</p></div>
+<div class="table-row"><p class="table-key">SMPP</p><p class="table-value">国际短信常用标准接口协议；出海系统对接常见；与国内CMPP混同</p></div>
+<div class="table-row"><p class="table-key">CMPP</p><p class="table-value">国内运营商体系常用标准协议；行业内系统接入速度快；误以为所有客户都适用</p></div>
+<p class="table-item">HTTP/</p>
+<div class="table-row"><p class="table-key">HTTPS</p><p class="table-value">通用接口协议，HTTPS含传输加密；大多数企业客户首选；误以为HTTP不需任何安全治理</p></div>
+<div class="table-row"><p class="table-key">USSD</p><p class="table-value">GSM会话型菜单交互协议（常见*...#）；实时交互、弱网可用、消息通常不入箱；与SMS存储转发机制混淆</p></div>
+<div class="table-row"><p class="table-key">Binary SMS</p><p class="table-value">负载为二进制数据的短信形态；适合M2M控制与配置下发；误以为可无限承载数据</p></div>
+<div class="table-row"><p class="table-key">Flash SMS</p><p class="table-value">Class 0 短信，优先弹窗显示；强提醒、高可见；通常不入箱；用于常规营销引发强干扰</p></div>
+<div class="table-row"><p class="table-key">回填率</p><p class="table-value">验证码被用户实际填回比例；国际验证码场景核心指标；用成功率替代回填率评估</p></div>
+<div class="table-row"><p class="table-key">私有化部署</p><p class="table-value">在客户侧专属部署短信平台能力；粘性高、运维要求高；误以为私有化是一次性交付</p></div>
+<h1 id="缩写速查">缩写速查</h1>
+<div class="table-row"><p class="table-key">缩写</p><p class="table-value">释义</p></div>
+<div class="table-row"><p class="table-key">QPS</p><p class="table-value">每秒请求/处理条数（Queries Per Second）</p></div>
+<div class="table-row"><p class="table-key">MT</p><p class="table-value">下行短信（Mobile Terminated）</p></div>
+<div class="table-row"><p class="table-key">MO</p><p class="table-value">上行短信（Mobile Originated）</p></div>
+<div class="table-row"><p class="table-key">SP</p><p class="table-value">增值电信业务服务提供者资质体系中的通用称谓</p></div>
+<div class="table-row"><p class="table-key">SubID</p><p class="table-value">子端口编号</p></div>
+<div class="table-row"><p class="table-key">SLA</p><p class="table-value">服务等级协议（Service Level Agreement）</p></div>
+<div class="table-row"><p class="table-key">DND</p><p class="table-value">防骚扰机制（Do Not Disturb）</p></div>
+<h1 id="a-4-对外发布前检查清单">A．4 对外发布前检查清单</h1>
+<aside class="callout">
+<ol><li>术语是否全部符合“术语统一标准”。</li><li>客户信息是否全部达到 Release-L2 匿名等级。</li><li>规则口径是否全部标注版本号。</li><li>时间窗、计费、回执、频控描述是否与当前规则一致。</li><li>图表标题、单位、缩写（QPS、MO、MT）是否统一。</li><li>是否移除内部群名、个人姓名、私有项目代号。</li><li>PDF 元信息与封面版本信息是否一致。</li></ol>
+</aside>
+<h1 id="修订说明与版本记录">修订说明与版本记录</h1>
+<aside class="callout">
+<p>本文档已完成可学习化修订与专业文稿化重写，并执行出版级精修：统一术语、统一客户匿名策略、统一规则版本号。 本版已经从课堂对话体重构为书稿体；逐字稿保留在单独文档，不与本稿混用。</p>
+</aside>
+<div class="table-row"><p class="table-key">版本</p><p class="table-value">日期；变更说明</p></div>
+<div class="table-row"><p class="table-key">V1.0</p><p class="table-value">2026-02-08；完成可学习化修订与补全，形成学习版文档</p></div>
+<div class="table-row"><p class="table-key">V2.0</p><p class="table-value">2026-02-08；完成出版级精修：术语统一、匿名策略、规则版本化</p></div>
+<div class="table-row"><p class="table-key">V3.0</p><p class="table-value">2026-02-08；完成书稿体重写：去对话化、专业叙述化、名词解释体系化</p></div>
+<div class="table-row"><p class="table-key">V4.0</p><p class="table-value">2026-02-08；命名升级为“学习手册”；新增零基础导读，强化初学者可读性</p></div>
+<div class="table-row"><p class="table-key">V4.1</p><p class="table-value">2026-02-09；整合“消息类型介绍”材料：新增USSD、二进制短信、闪信细化章节与术语</p></div>
+      </article>
+    </main>
+  </body>
+</html>

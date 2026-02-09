@@ -5,6 +5,7 @@
 - 样式：`docs/assets/styles.css`
 - 交互：`docs/assets/app.js`
 - 数据：`docs/assets/data.json`
+- 在线文稿页：`docs/readers/*.html`
 - 文稿：`docs/files/*.pdf`
 - 发布：`.github/workflows/pages.yml`
 
@@ -12,13 +13,15 @@
 - 知识点：`output/src/knowledge_points_full.tex`
 - 题库：`output/src/practice_with_brain_science.tex`
 - 构建脚本：`tools/build_web_data.py`
+- 文稿转换脚本：`tools/build_web_docs.py`
 
 ## 每次更新步骤
 1. 更新 tex 文稿并重新编译 PDF：`./output/scripts/build_all.sh`
 2. 生成网站数据：`python3 tools/build_web_data.py`
-3. 同步 PDF 到网站目录：`cp -f output/pdf/*.pdf docs/files/`
-4. 语法检查：`node --check docs/assets/app.js`
-5. 提交推送后由 GitHub Actions 自动发布 Pages
+3. 生成在线文稿页：`python3 tools/build_web_docs.py`
+4. 同步 PDF 到网站目录：`cp -f output/pdf/*.pdf docs/files/`
+5. 语法检查：`node --check docs/assets/app.js`
+6. 提交推送后由 GitHub Actions 自动发布 Pages
 
 ## 功能说明
 - 知识点：搜索 + 标签筛选 + 跳转题库

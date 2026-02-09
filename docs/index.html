@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="assets/styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#mainContent">跳到主内容</a>
     <div class="bg-layer bg-1"></div>
     <div class="bg-layer bg-2"></div>
 
@@ -34,7 +35,7 @@
       <button class="tab" data-tab="progress">进度与错题</button>
     </nav>
 
-    <main class="layout">
+    <main class="layout" id="mainContent">
       <aside class="sidebar">
         <section class="panel" id="metaPanel">
           <h2>数据概览</h2>
@@ -108,17 +109,17 @@
         <section class="tab-pane" data-pane="library">
           <div class="panel">
             <h2>文稿中心</h2>
-            <p class="hint">包含完整学习手册、全知识点、题库与逐字稿。移动端建议“新标签打开”阅读。</p>
+            <p class="hint">包含完整学习手册、全知识点、题库与逐字稿的在线文稿版，支持站内阅读与新标签阅读。</p>
             <div id="docCards" class="doc-cards"></div>
           </div>
 
           <div class="panel">
-            <h2>在线预览</h2>
+            <h2>在线文稿预览</h2>
             <div class="tool-row">
               <select id="docPreviewSelect"></select>
-              <a id="docOpenNew" class="solid-btn as-link" href="#" target="_blank" rel="noopener">新标签打开</a>
+              <a id="docOpenNew" class="solid-btn as-link" href="#" target="_blank" rel="noopener">在线阅读</a>
             </div>
-            <iframe id="docPreviewFrame" title="文稿预览"></iframe>
+            <iframe id="docPreviewFrame" title="在线文稿预览"></iframe>
           </div>
         </section>
 

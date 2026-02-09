@@ -506,6 +506,10 @@ function renderQuizList() {
   list.innerHTML = pageItems.map(renderQuestionCard).join("");
 }
 
+function getDocPreviewPath(doc) {
+  return doc?.web || doc?.file || "";
+}
+
 function renderDocLibrary() {
   const docs = state.data.documents || [];
   const cards = $("#docCards");
@@ -513,15 +517,18 @@ function renderDocLibrary() {
 
   cards.innerHTML = docs
     .map(
-      (doc) => `
+      (doc) => {
+        const previewPath = getDocPreviewPath(doc);
+        return `
       <article class=\"doc-card\">
         <h3>${escapeHtml(doc.title)}</h3>
         <p>${escapeHtml(doc.desc || "")}</p>
         <div class=\"tool-row\">
           <button class=\"ghost-btn\" data-action=\"preview-doc\" data-doc=\"${escapeHtml(doc.id)}\">站内预览</button>
-          <a class=\"solid-btn as-link\" href=\"${escapeHtml(doc.file)}\" target=\"_blank\" rel=\"noopener\">新标签打开</a>
+          <a class=\"solid-btn as-link\" href=\"${escapeHtml(previewPath)}\" target=\"_blank\" rel=\"noopener\">在线阅读</a>
         </div>
-      </article>`
+      </article>`;
+      }
     )
     .join("");
 
@@ -540,9 +547,10 @@ function updateDocPreview(docId) {
   const docs = state.data.documents || [];
   const target = docs.find((doc) => doc.id === docId) || docs[0];
   if (!target) return;
+  const previewPath = getDocPreviewPath(target);
 
-  $("#docPreviewFrame").src = target.file;
-  $("#docOpenNew").href = target.file;
+  $("#docPreviewFrame").src = previewPath;
+  $("#docOpenNew").href = previewPath;
   $("#docPreviewSelect").value = target.id;
 }
 

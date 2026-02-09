@@ -147,14 +147,17 @@ def parse_judge(seg: str) -> List[QuestionItem]:
 def parse_short(seg: str, source: str) -> List[QuestionItem]:
     pat = re.compile(r"\\textbf\{(\d+)\.\}\s*(.*?)\s*&\s*(.*?)\\\\", re.S)
     out = []
+    seen = {}
     for n, qraw, ans in pat.findall(seg):
         q = clean_tex(qraw)
         a = clean_tex(ans)
         if not q:
             continue
+        seen[n] = seen.get(n, 0) + 1
+        suffix = f"-{seen[n]}" if seen[n] > 1 else ""
         out.append(
             QuestionItem(
-                id=f"{source}-{n}",
+                id=f"{source}-{n}{suffix}",
                 source=source,
                 qtype="short",
                 stem=q,
@@ -257,25 +260,29 @@ def main() -> None:
             "id": "doc-1",
             "title": "企业短信培训学习手册（专业文稿版）",
             "desc": "完整学习主线，适合系统阅读。",
-            "file": "files/01-企业短信培训学习手册-专业文稿版.pdf",
+            "web": "readers/doc-1.html",
+            "pdf": "files/01-企业短信培训学习手册-专业文稿版.pdf",
         },
         {
             "id": "doc-2",
             "title": "全知识点（结构化）",
             "desc": "用于按主题速查与复盘。",
-            "file": "files/02-全知识点-企业短信培训.pdf",
+            "web": "readers/doc-2.html",
+            "pdf": "files/02-全知识点-企业短信培训.pdf",
         },
         {
             "id": "doc-3",
             "title": "题库（学习测评版）",
             "desc": "覆盖单选、多选、判断、场景、闪卡与扩展消息类型专题。",
-            "file": "files/03-企业短信培训题库-学习测评版.pdf",
+            "web": "readers/doc-3.html",
+            "pdf": "files/03-企业短信培训题库-学习测评版.pdf",
         },
         {
             "id": "doc-4",
             "title": "逐字稿",
             "desc": "保留原始语境，适合对照细节。",
-            "file": "files/04-逐字稿-企业短信培训.pdf",
+            "web": "readers/doc-4.html",
+            "pdf": "files/04-逐字稿-企业短信培训.pdf",
         },
     ]
 
